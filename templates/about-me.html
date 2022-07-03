@@ -1,0 +1,222 @@
+{% extends "base.html" %} {% block title %}About Me - Galip Argun{% endblock %}
+{% block content %}
+
+<!-- about-me start -->
+<div class="baslik-customize py-3 mt-5">
+  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
+    >About Me</span
+  >
+</div>
+
+<div class="row mt-3 ps-3">
+  <div class="col-md-8 pe-3">
+    <span class="about-me-beginning">
+      I'm an EE Engineer, and coding enthusiast based in lovely Bremen, Germany.
+    </span>
+    <div class="about-me-beginning-text mt-3">
+      <p>{{ abouts.header|safe }}</p>
+    </div>
+  </div>
+  <div class="col-md-4 image-style pe-3">
+    <img
+      src="./static/image/profil.jpg"
+      class="rounded float-md-end"
+      style="max-width: 300px; max-height: 300px"
+    />
+  </div>
+
+  <div class="col-12 personal-image-style d-none d-md-block mt-3 ps-0">
+    <div class="d-md-flex">
+      <a
+        href="{{ abouts.p1_link }}"
+        target="_blank"
+        class="d-flex-inline mx-auto mt-1 ms-0"
+        ><img
+          src="{{ abouts.p1 }}"
+          class="img-thumbnail"
+          alt="..."
+      /></a>
+      <a
+        href="{{ abouts.p2_link }}"
+        target="_blank"
+        class="d-flex-inline mx-auto mt-1"
+        ><img
+          src="{{ abouts.p2 }}"
+          class="img-thumbnail"
+          alt="..."
+      /></a>
+      <a
+        href="{{ abouts.p3_link }}"
+        target="_blank"
+        class="d-flex-inline mx-auto mt-1"
+        ><img
+          src="{{ abouts.p3 }}"
+          class="img-thumbnail"
+          alt="..."
+      /></a>
+      <a
+        href="{{ abouts.p4_link }}"
+        target="_blank"
+        class="d-flex-inline mx-auto mt-1"
+        ><img
+          src="{{ abouts.p4 }}"
+          class="img-thumbnail"
+          alt="..."
+      /></a>
+      <a
+        href="{{ abouts.p5_link }}"
+        target="_blank"
+        class="d-flex-inline mx-auto mt-1 me-0"
+        ><img
+          src="{{ abouts.p5 }}"
+          class="img-thumbnail"
+          alt="..."
+      /></a>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-5 mb-5 shadow rounded-0">
+  <div class="card-body about-me-beginning-text">
+
+      {{ abouts.body|safe }}
+
+  </div>
+</div>
+<!-- about-me ends -->
+
+<!-- skills start -->
+<div class="baslik-customize py-3 mt-5">
+  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
+    >My Skills</span
+  >
+</div>
+
+<div class="row mt-2">
+  <div class="col-md-5">
+    <div class="card shadow rounded-0">
+      <div class="card-body">
+        <span style="color: palevioletred; font-weight: 350">import</span>
+        <span style="font-weight: 300">datetime</span>
+        <br />
+        <span style="color: palevioletred; font-weight: 350">def</span
+        ><span style="color: green; font-weight: 350">
+          Person <span style="color: black">(</span>
+          <span style="color: orange; font-style: italic">year</span
+          ><span style="color: black">)</span>:
+        </span>
+        <br />
+        <span style="margin-left: 10px">name</span
+        ><span style="color: palevioletred; font-weight: 350"> = </span
+        ><span style="color: rgb(230, 167, 50)">'Galip Argun'</span>
+        <br />
+        <span style="margin-left: 10px">traits</span
+        ><span style="color: palevioletred; font-weight: 350"> = </span
+        ><span style="color: rgb(230, 167, 50)">['Engineer', 'DEV']</span>
+        <br />
+        <span style="margin-left: 10px">age</span
+        ><span style="color: palevioletred; font-weight: 350"> = </span
+        ><span style="color: black">datetime.</span
+        ><span style="color: blue">datetime</span>.<span
+          style="color: green; font-weight: 350"
+        >
+          today</span
+        >().year<span style="color: palevioletred; font-weight: 350"> - </span
+        ><span style="color: rgb(230, 167, 50)"> year</span>
+        <br />
+        <span style="color: green; font-weight: 350; margin-left: 10px">
+          print</span
+        >(name, traits, age)
+        <br />
+        <span style="color: green; font-weight: 350">Person(</span>1994<span
+          style="color: green; font-weight: 350"
+          >)</span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="row p-2">
+      <div class="col-md-6">
+        <h4 class="progress-title">DRINKING TEA/COFFEE</h5>
+          <div class="progress green">
+            <div class="progress-bar" style="width: 100%; background: #53aa2c">
+              <div class="progress-value">100%</div>
+            </div>
+          </div>
+        <h4 class="progress-title">HTML5</h5>
+        <div class="progress orange">
+          <div class="progress-bar" style="width: 90%; background: #fe3b3b">
+            <div class="progress-value">90%</div>
+          </div>
+        </div>
+        <h3 class="progress-title">CSS3</h3>
+        <div class="progress blue">
+          <div class="progress-bar" style="width: 90%; background: #1a4966">
+            <div class="progress-value">90%</div>
+          </div>
+        </div>
+        <h3 class="progress-title">BOOTSTRAP</h3>
+        <div class="progress bootstrap">
+          <div class="progress-bar" style="width: 95%; background: #050268">
+            <div class="progress-value">95%</div>
+          </div>
+        </div>
+        
+        
+      </div>
+      <div class="col-md-6">
+        <h3 class="progress-title">PHP</h3>
+        <div class="progress php">
+          <div class="progress-bar" style="width: 60%; background: #a572dc">
+            <div class="progress-value">60%</div>
+          </div>
+        </div>
+        <h3 class="progress-title">PYTHON</h3>
+        <div class="progress blue">
+          <div class="progress-bar" style="width: 70%; background: #1a4966">
+            <div class="progress-value">70%</div>
+          </div>
+        </div>
+        <h3 class="progress-title">JAVASCRIPT</h3>
+        <div class="progress red">
+          <div class="progress-bar" style="width: 60%; background: #e42756">
+            <div class="progress-value">60%</div>
+          </div>
+        </div>
+        <h3 class="progress-title">SQL/MySQL</h3>
+        <div class="progress mysql">
+          <div class="progress-bar" style="width: 95%; background: #b3b010">
+            <div class="progress-value">95%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+  </div>
+</div>
+<!-- skills end -->
+
+<!-- random things starts -->
+<div class="baslik-customize py-3 mt-4">
+  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
+    >Random Facts</span
+  >
+</div>
+<div class="card mt-2 mb-5 shadow rounded-0">
+  <div class="card-body">
+    <p class="about-me-beginning-text mb-0">
+      — Give me tea or coffee, and I'll change the orbit of the world. 
+      <br>
+      — I adore traveling. I have been to more than 40 countries, 200 cities. 
+      <br>
+      — I am a learning freak (thanks to my engineer education). I'll be very happy when I get new cerificates.
+      <br>
+      — I love to cook (and ofcourse eat). You're right! I joined certification course for it!
+    </p>
+  </div>
+</div>
+<!-- random things ends -->
+
+{% endblock %}

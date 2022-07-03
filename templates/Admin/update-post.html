@@ -1,0 +1,53 @@
+{% extends "admin/admin-base.html" %} {% block title %} {{user}} Welcome! -
+Admin Panel {% endblock%} {%block content%}
+
+<div class="card">
+  <div class="card-header"><h6>UPDATE: {{post.title}}</h6></div>
+  <div class="card-body">
+    <form method="POST">
+      <div class="input-group flex-nowrap mb-3">
+        <span class="input-group-text" id="addon-wrapping"
+          ><i class="bi bi-cursor-text fw-bolder"></i
+        ></span>
+        <input
+          type="text"
+          class="form-control fw-bolder"
+          value="{{ post.title}}"
+          aria-label="Title"
+          id="title_edit"
+          name="title_edit"
+          aria-describedby="addon-wrapping"
+        />
+      </div>
+
+      <!-- editor starts -->
+      <textarea id="edit" name="edit">{{ post.text|safe }}</textarea>
+      <!-- editor ends -->
+
+      <div align="right">
+        <button
+          type="submit"
+          id="submit_button"
+          class="btn btn-outline-danger fw-bolder mt-2"
+        >
+          SAVE EDIT
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="{{url_for('static', filename = 'js/custom/ckeditor/ckeditor.js')}}"></script>
+<script>
+  ClassicEditor.create(document.querySelector("#edit"), {
+    // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+  })
+    .then((editor) => {
+      window.editor = editor;
+    })
+    .catch((err) => {
+      console.error(err.stack);
+    });
+</script>
+
+{% endblock %}

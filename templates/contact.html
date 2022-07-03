@@ -1,0 +1,101 @@
+{% extends "base.html" %} {% block title %}Contact Me - Galip Argun{% endblock
+%} {% block content %}
+
+<!-- contact starts -->
+<div class="baslik-customize py-3 mt-5">
+  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
+    >Contact Me</span
+  >
+</div>
+<div class="card mt-3 shadow">
+  <div class="card-body">
+    <p class="about-me-beginning-text">
+      Hello again,I hope you had a good time on my website and would like to
+      contact me. There are two ways to do this: the first is to fill out the
+      contact form below, the other is via
+      <a class="link" href="mailto:glpargun@gmail.com"
+        >my email<i class="bi bi-arrow-up-right"></i></a
+      >. By the way, not to brag, but I'm notorious for responding quickly to my
+      emails.
+    </p>
+  </div>
+</div>
+
+<div class="card mt-3 shadow">
+  <div class="card-body">
+    <div class="container py-4">
+      <!-- Bootstrap 5 starter form -->
+
+      <form method="POST" id="contactForm" data-sb-form-api-token="API_TOKEN">
+        <!-- Name input -->
+        <div class="mb-3">
+          <label class="form-label" for="name">Name</label>
+          <input
+            class="form-control"
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Name"
+            data-sb-validations="required"
+          />
+          <div class="invalid-feedback" data-sb-feedback="name:required">
+            Name is required.
+          </div>
+        </div>
+
+        <!-- Email address input -->
+        <div class="mb-3">
+          <label class="form-label" for="mail">Email Address</label>
+          <input
+            class="form-control"
+            id="mail"
+            name="mail"
+            type="email"
+            placeholder="Email Address"
+            data-sb-validations="required, email"
+          />
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="emailAddress:required"
+          >
+            Email Address is required.
+          </div>
+          <div class="invalid-feedback" data-sb-feedback="emailAddress:email">
+            Email Address Email is not valid.
+          </div>
+        </div>
+
+        <!-- Message input -->
+        <div class="mb-3">
+          <label class="form-label" for="message">Message</label>
+          <textarea
+            class="form-control"
+            id="message"
+            name="message"
+            type="text"
+            placeholder="Message"
+            style="height: 10rem"
+            data-sb-validations="required"
+          ></textarea>
+          <div class="invalid-feedback" data-sb-feedback="message:required">
+            Message is required.
+          </div>
+        </div>
+
+        <!-- Form submit button -->
+        <div class="d-grid">
+          <button
+            class="btn btn-primary btn-lg"
+            id="submitButton"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- contact ends -->
+
+{% endblock %}

@@ -1,0 +1,189 @@
+{% extends "admin/admin-base.html" %} {% block title %} {{user}} Welcome! -
+Admin Panel {% endblock%} {%block content%}
+
+<div class="card">
+  <div class="card-header">
+    <span class="fw-bolder">PROJECTS </span>
+  </div>
+  <div class="card-body">
+    <!-- submenu starts -->
+    <ul class="nav nav-tabs mx-auto border-0" id="profile-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          type="button"
+          class="btn btn-outline-dark profile-btn-specialization me-1 active"
+          id="activity-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#list"
+          role="tab"
+          aria-controls="list"
+          aria-selected="true"
+        >
+          <i class="bi bi-list-check"></i>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          type="button"
+          class="btn btn-outline-primary profile-btn-specialization fw-bolder me-1"
+          id="answers-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#create"
+          role="tab"
+          aria-controls="create"
+          aria-selected="true"
+        >
+          <i class="bi bi-plus-lg"></i> ADD A PROJECT
+        </button>
+      </li>
+    </ul>
+    <!-- submenu ends -->
+
+    <div class="tab-content mt-3" id="profile-tabs">
+      <!-- list part starts -->
+      <div
+        class="tab-pane fade show active mb-2"
+        id="list"
+        role="tabpanel"
+        aria-labelledby="list-tab"
+      >
+        <div class="row">
+          {% for project in projects|sort(attribute='id', reverse = True) %}
+
+          <div class="col-2 p-2">
+            <img
+              src="{{ project.photo }}"
+              style="width: 150px; height: 150px"
+              class="img-fluid rounded"
+            />
+          </div>
+          <div class="col-10 p-2">
+            {% if project.status == 1 %}
+            <button
+              class="btn btn-outline-primary btn-sm mb-2 fw-bolder"
+              disabled
+            >
+              in progress
+            </button>
+            {% elif project.status == 2 %}
+            <button
+              class="btn btn-outline-success btn-sm mb-2 fw-bolder"
+              disabled
+            >
+              Finished</button
+            >{% elif project.status == 3 %}
+            <button
+              class="btn btn-outline-secondary btn-sm mb-2 fw-bolder"
+              disabled
+            >
+              on plan
+            </button>
+            {% endif %} |
+            <a
+              href="/admin/delete-project/{{project.id}}"
+              class="btn btn-sm btn-outline-danger mb-2 mt-0 fw-bolder"
+              >DELETE</a
+            >
+            |
+            <a
+              href="/admin/admin-project-edit/{{project.id}}"
+              class="btn btn-sm btn-outline-success mb-2 mt-0 fw-bolder"
+              >UPDATE</a
+            >
+            <h5 class="card-title">{{ project.name }}</h5>
+            <span class="card-text mt-0 p-0"
+              >{{ project.description|safe }} | {{ project.photo }}</span
+            >
+          </div>
+
+          {% endfor %}
+        </div>
+      </div>
+      <!-- list part ends -->
+
+      <!-- create part starts -->
+      <div
+        class="tab-pane fade mb-2"
+        id="create"
+        role="tabpanel"
+        aria-labelledby="create-tab"
+      >
+        <form method="POST">
+          <div class="input-group flex-nowrap mb-3 mt-3">
+            <span class="input-group-text" id="name"
+              ><i class="bi bi-cursor-text fw-bolder"></i
+            ></span>
+            <input
+              type="text"
+              class="form-control fw-bolder"
+              aria-label="name"
+              id="name"
+              name="name"
+              placeholder="title here"
+              aria-describedby="name"
+            />
+          </div>
+
+          <!-- editor starts -->
+          <div class="input-group mt-3 mb-3">
+            <span class="input-group-text"><i class="bi bi-bricks"></i> </span>
+            <textarea
+              name="description"
+              id="description"
+              class="form-control"
+              maxlength="300"
+              placeholder="text here."
+              aria-label="description"
+            ></textarea>
+          </div>
+          <!-- editor ends -->
+
+          <div class="form-floating mt-3">
+            <select
+              class="form-select"
+              id="status"
+              name="status"
+              aria-label="Floating label select example"
+            >
+              <option selected>Open this select menu</option>
+              <option id="status" name="status" value="1">in process</option>
+              <option id="status" name="status" value="2">finished</option>
+              <option id="status" name="status" value="3">on plan</option>
+            </select>
+            <label for="status">Status of Project</label>
+          </div>
+
+          <div class="input-group flex-nowrap mb-3 mt-3">
+            <span class="input-group-text" id="photo"
+              ><i class="bi bi-image"></i
+            ></span>
+            <input
+              type="text"
+              class="form-control"
+              aria-label="photo"
+              id="photo"
+              name="photo"
+              placeholder="photo link is here"
+              aria-describedby="photo"
+            />
+          </div>
+
+          <div align="right">
+            <button
+              type="submit"
+              id="submit_button"
+              class="btn btn-outline-danger fw-bolder mt-2"
+            >
+              ADD PROJECT
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- create part ends -->
+    </div>
+
+    <!-- tab ends -->
+  </div>
+</div>
+
+{% endblock %}

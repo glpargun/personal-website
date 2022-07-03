@@ -1,0 +1,250 @@
+{% extends "admin/admin-base.html" %} {% block title %} {{user}} Welcome! -
+Admin Panel {% endblock%} {%block content%}
+
+<div class="card">
+  <div class="card-header">
+    <span class="fw-bolder">ABOUT ME</span> - Last Update:
+    <span class="fw-bolder text-danger">{{ about.date_created }}</span>
+  </div>
+  <div class="card-body">
+    <form method="POST">
+      <div class="input-group mb-3">
+        <span class="input-group-text"
+          ><i class="bi bi-type-h1 fw-bolder"></i
+        ></span>
+        <textarea
+          id="header"
+          name="header"
+          class="form-control"
+          aria-label="With textarea"
+        >
+{{ about.header }}</textarea
+        >
+      </div>
+
+      <!-- editor starts -->
+      <textarea id="body" name="body">{{ about.body }}</textarea>
+      <!-- editor ends -->
+
+      <div class="input-group mt-3 mb-3">
+        <span class="input-group-text">Random Facts: </span>
+        <textarea
+          id="random_facts"
+          name="random_facts"
+          class="form-control"
+          aria-label="Random Facts"
+        >
+{{ about.random_facts }}</textarea
+        >
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="profil_photo">Profil Photo: </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.profil_photo }}"
+          aria-label="Profil Photo"
+          id="profil_photo"
+          name="profil_photo"
+          aria-describedby="profil_photo"
+        />
+      </div>
+      <div class="hr-theme-slash-2 mt-3 mb-3">
+        <div class="hr-line">Photo 1</div>
+        <div class="hr-line"></div>
+        <div class="hr-line"></div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p1"
+          ><i class="bi bi-image"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p1 }}"
+          aria-label="photo 1"
+          id="p1"
+          name="p1"
+          aria-describedby="p1"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p1_link"
+          ><i class="bi bi-link-45deg"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p1_link }}"
+          aria-label="photo 1"
+          id="p1_link"
+          name="p1_link"
+          aria-describedby="p1_link"
+        />
+      </div>
+      <div class="hr-theme-slash-2 mt-3 mb-3">
+        <div class="hr-line">Photo 2</div>
+        <div class="hr-line"></div>
+        <div class="hr-line"></div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p2"
+          ><i class="bi bi-image"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p2 }}"
+          aria-label="photo 2"
+          id="p2"
+          name="p2"
+          aria-describedby="p2"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p2_link"
+          ><i class="bi bi-link-45deg"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p2_link }}"
+          aria-label="photo 2"
+          id="p2_link"
+          name="p2_link"
+          aria-describedby="p2_link"
+        />
+      </div>
+      <div class="hr-theme-slash-2 mt-3 mb-3">
+        <div class="hr-line">Photo 3</div>
+        <div class="hr-line"></div>
+        <div class="hr-line"></div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p3"
+          ><i class="bi bi-image"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p3 }}"
+          aria-label="photo 3"
+          id="p3"
+          name="p3"
+          aria-describedby="p3"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p3_link"
+          ><i class="bi bi-link-45deg"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p3_link }}"
+          aria-label="photo 3"
+          id="p3_link"
+          name="p3_link"
+          aria-describedby="p3_link"
+        />
+      </div>
+      <div class="hr-theme-slash-2 mt-3 mb-3">
+        <div class="hr-line">Photo 4</div>
+        <div class="hr-line"></div>
+        <div class="hr-line"></div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p4"
+          ><i class="bi bi-image"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p4 }}"
+          aria-label="photo 4"
+          id="p4"
+          name="p4"
+          aria-describedby="p4"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p4_link"
+          ><i class="bi bi-link-45deg"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p4_link }}"
+          aria-label="photo 4"
+          id="p4_link"
+          name="p4_link"
+          aria-describedby="p4_link"
+        />
+      </div>
+      <div class="hr-theme-slash-2 mt-3 mb-3">
+        <div class="hr-line">Photo 5</div>
+        <div class="hr-line"></div>
+        <div class="hr-line"></div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p5"
+          ><i class="bi bi-image"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p5 }}"
+          aria-label="photo 5"
+          aria-describedby="p5"
+          id="p5"
+          name="p5"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="p5_link"
+          ><i class="bi bi-link-45deg"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ about.p5_link }}"
+          aria-label="photo 5"
+          id="p5_link"
+          name="p5_link"
+          aria-describedby="p5_link"
+        />
+      </div>
+
+      <div align="right">
+        <button
+          type="submit"
+          id="submit_button"
+          class="btn btn-outline-success fw-bolder mt-2"
+        >
+          UPDATE
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="{{url_for('static', filename = 'js/custom/ckeditor/ckeditor.js')}}"></script>
+<script>
+  ClassicEditor.create(document.querySelector("#body"), {
+    // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+  })
+    .then((editor) => {
+      window.editor = editor;
+    })
+    .catch((err) => {
+      console.error(err.stack);
+    });
+</script>
+
+{% endblock %}

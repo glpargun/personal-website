@@ -1,0 +1,97 @@
+{% extends "admin/admin-base.html" %} {% block title %} {{user}} Welcome! -
+Admin Panel {% endblock%} {%block content%}
+
+<div class="card shadow">
+  <div class="card-header">
+    <span class="fw-bolder">PROJECTS</span>
+  </div>
+  <div class="card-body">
+    <!-- create part starts -->
+    <form method="POST">
+      <div class="input-group flex-nowrap mb-3 mt-3">
+        <span class="input-group-text" id="name"
+          ><i class="bi bi-cursor-text fw-bolder"></i
+        ></span>
+        <input
+          type="text"
+          class="form-control fw-bolder"
+          aria-label="name"
+          id="name"
+          name="name"
+          value="{{ projects.name }}"
+          aria-describedby="name"
+        />
+      </div>
+
+      <!-- editor starts -->
+      <div class="input-group mt-3 mb-3">
+        <span class="input-group-text"><i class="bi bi-bricks"></i> </span>
+        <textarea
+          name="description"
+          id="description"
+          class="form-control"
+          maxlength="300"
+          aria-label="description"
+        >
+{{ projects.description }}</textarea
+        >
+      </div>
+      <!-- editor ends -->
+
+      <select
+        id="status"
+        name="status"
+        class="form-select mt-3"
+        aria-label="Default select example"
+      >
+        {% if projects.status == 1 %}
+        <option id="status" name="status" value="1" selected>
+          <span class="fw-bolder text-danger">in progress</span>
+        </option>
+        {% elif projects.status == 2 %}
+        <option id="status" name="status" value="2" selected>Finished</option>
+        {% elif projects.status == 3 %}
+        <option id="status" name="status" value="3" selected>on plan</option>
+        {% endif %}
+
+        <option id="status" name="status" value="1">
+          <span>in process</span>
+        </option>
+        <option id="status" name="status" value="2">
+          <span>finished</span>
+        </option>
+        <option id="status" name="status" value="3">
+          <span>on plan</span>
+        </option>
+      </select>
+
+      <div class="input-group flex-nowrap mb-3 mt-3">
+        <span class="input-group-text" id="photo"
+          ><i class="bi bi-camera"></i
+        ></span>
+        <input
+          type="text"
+          class="form-control fw-bolder"
+          aria-label="photo"
+          id="photo"
+          name="photo"
+          value="{{ projects.photo }}"
+          aria-describedby="photo"
+        />
+      </div>
+
+      <div align="right">
+        <button
+          type="submit"
+          id="submit_button"
+          class="btn btn-outline-danger fw-bolder mt-2"
+        >
+          UPDATE
+        </button>
+      </div>
+    </form>
+    <!-- create part ends -->
+  </div>
+</div>
+
+{% endblock %}

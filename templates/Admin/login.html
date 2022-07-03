@@ -1,0 +1,57 @@
+{% extends "Admin/admin-base.html" %} {% block title %} Admin Panel {%
+endblock%} {%block content%}
+
+<div style="margin-top: 15vw" align="center">
+  <div class="card mt-5" style="max-width: 500px">
+    <div class="card-header ps-0">
+      <div class="d-flex justify-content-between">
+        <div class="d-inline-flex">
+          <a href="/" class="btn btn-outline-light text-dark border-0"
+            ><i class="bi bi-arrow-left float-start"></i
+          ></a>
+        </div>
+        <div class="d-inline-flex pt-1 fw-bolder">Admin Login Page</div>
+        <div class="d-inline-flex"></div>
+      </div>
+    </div>
+    <div class="card-body" align="left">
+      <form method="POST">
+        <div class="input-group flex-nowrap mb-0 pb-0">
+          <span class="input-group-text" id="addon-wrapping"
+            ><i class="bi bi-person-fill"></i
+          ></span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Username"
+            aria-label="Username"
+            id="username"
+            name="username"
+            aria-describedby="addon-wrapping"
+          />
+        </div>
+        <br />
+        <div class="input-group flex-nowrap mt-0 pt-0">
+          <span class="input-group-text" id="addon-wrapping"
+            ><i class="bi bi-key-fill"></i
+          ></span>
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            aria-label="Password"
+            id="password"
+            name="password"
+            aria-describedby="addon-wrapping"
+          />
+        </div>
+        <div align="right">
+          <button type="submit" class="btn btn-outline-dark mt-2 fw-bolder">
+            LOGIN
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

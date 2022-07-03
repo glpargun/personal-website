@@ -1,0 +1,135 @@
+{% extends "base.html" %} {% block title %}Home - Galip Argun{% endblock %} {%
+block content %}
+<div class="welcome-style">
+  <h3><span>👋🏼</span><span class="ms-2">Hey, I am Galip!</span></h3>
+  <p>
+    I am a
+    <a
+      href="https://www.linkedin.com/in/galip-argun/"
+      class="link"
+      target="_blank"
+      >EE engineer</a
+    >
+    and creative developer,
+    <a
+      href="https://www.kitapyurdu.com/yazar/galip-argun/145236.html"
+      class="link"
+      target="_blank"
+      >writer</a
+    >
+    and a
+    <a href="https://github.com/glpargun" class="link a" target" ="_blank"
+      >coding enthusiast</a
+    >
+    such as python, HTML, CSS, PHP and additionally SQL, mySQL. I can build
+    anything from mobile to web app. I am living in lovely Bremen, Germany.
+    Currently, a master student at the University of Bremen.
+  </p>
+</div>
+
+<!-- my recent posts start -->
+<div class="baslik-customize py-3 mt-5">
+  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
+    >My Posts</span
+  >
+</div>
+<div class="card mt-2 mb-5 shadow">
+  <div class="card-body customize p-0">
+    <ol class="list-group p-2">
+      {% for post in posts|sort(attribute='id', reverse = True) %}
+      <!-- {{post.id}} list item starts -->
+      <a href="/writing-detail/{{post.id}}" class="text-decoration-none">
+        <li
+          class="list-group-item put-hover border-0 pt-2 pb-2 rounded d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="writing-heading">
+              {{ post.title|truncate(50, True, '..') }}
+            </div>
+            <span class="writing-date">{{ post.date_created }}</span>
+          </div>
+          <span class="badge bg-primary rounded-pill"
+            >{{post.likes|length}}</span
+          >
+        </li></a
+      >
+      <!-- {{post.id}} list item ends -->
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+<!-- my recent posts end -->
+
+<!-- some projects start -->
+<div class="baslik-customize py-3"><span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder">Some Projects</span></div>
+<div class="row mt-2 mb-4">
+  {% for project in projects|sort(attribute='id', reverse = True) %}
+    <div class="col-lg-4 mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          {% if project.status == 1 %}
+              <button
+                class="btn btn-outline-primary btn-sm mb-2 fw-bolder"
+                disabled
+              >
+                in progress
+              </button>
+              {% elif project.status == 2 %}
+              <button
+                class="btn btn-outline-success btn-sm mb-2 fw-bolder"
+                disabled
+              >
+                Finished</button
+              >{% elif project.status == 3 %}
+              <button
+                class="btn btn-outline-secondary btn-sm mb-2 fw-bolder"
+                disabled
+              >
+                on plan
+              </button>
+              {% endif %}<br>
+          <img src="{{ project.photo }}" alt="" class="img-fluid rounded mb-2">
+          <h5 class="card-title">{{ project.name }}</h5>
+          <span class="card-text pt-0 mt-0">{{ project.description|safe }}</span>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+
+    
+<!-- some projects end -->
+
+<!-- my popular posts start -->
+<div class="baslik-customize py-3"><span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder">Skills</span></div>
+<div class="card mt-2 mb-4 shadow">
+  <div class="card-body customize p-3">
+    <div class="d-inline-flex fw-bolder text-muted">Languages and Frameworks: </div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/html.png" width="32" height="32" class="me-1">HTML</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/css.png" width="32" height="32" class="me-1">CSS</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/python.png" width="32" height="32" class="me-1">PYTHON</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/php.png" width="32" height="32" class="me-1">PHP</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/java.png" width="32" height="32" class="me-1">JAVASCRIPT</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/sql.png" width="32" height="32" class="me-1">SQL</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/bootstrap.png" width="32" height="32" class="me-1">BOOTSTRAP</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/flask.png" width="32" height="32" class="me-1">FLASK</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/matlab.png" width="32" height="32" class="me-1">MATLAB</span></div>
+    <br>
+    <div class="d-inline-flex fw-bolder text-muted">Databases: </div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/mysql.png" width="32" height="32" class="me-1">mySQL</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/mongodb.png" width="32" height="32" class="me-1">mongoDB</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/sqlite.png" width="32" height="32" class="me-1">SQLite</span></div>
+    <br>
+    <div class="d-inline-flex fw-bolder text-muted">Programs: </div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/office.png" width="32" height="32" class="me-1">Office Packages</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/photoshop.png" width="32" height="32" class="me-1">Adobe Photoshop</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/autocad.png" width="32" height="32" class="me-1">AutoCAD</span></div>
+    <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/3ds.png" width="32" height="32" class="me-1">3ds Max</span></div>
+
+   
+
+
+  </div>
+</div>
+<!-- my travel posts end -->
+{% endblock %}

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}Galip Argun{% endblock %}</title>
+
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename= 'css/all.css')}}"
+    />
+
+    <!-- ICON -->
+    <link
+      href="{{url_for('static', filename= 'image/favicon.png')}}"
+      rel="icon"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <!-- system messages start -->
+    {% with messages = get_flashed_messages(with_categories=True) %} {% if
+    messages%} {% for category, message in messages %} {%if category ==
+    "error"%}
+    <div
+      class="toast fade show position-absolute mt-3 me-3 top-0 end-0"
+      style="z-index: 10000"
+      id="myToast"
+    >
+      <div class="toast-header">
+        <strong class="me-auto text-danger"
+          ><i class="bi bi-exclamation-square-fill"></i> Something's
+          wrong!</strong
+        >
+        <small>less than a min</small>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="toast-body welcome-style p-3">{{ message }}</div>
+    </div>
+    {%else %}
+    <div
+      class="toast fade show position-absolute top-0 mt-3 me-3 end-0"
+      style="z-index: 10000"
+      id="myToast"
+    >
+      <div class="toast-header">
+        <strong class="me-auto text-success"
+          ><i class="bi bi-check-square-fill text-success"></i>
+          Congratulations!</strong
+        >
+        <small>less than a min</small>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="toast-body welcome-style p-3">{{ message }}</div>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <!-- system messsages end -->
+
+    <div class="container mt-5 mb-5">{% block content %} {% endblock %}</div>
+    <br /><br /><br />
+
+    <!-- menu starts -->
+    {% if user.is_authenticated %}
+    <div class="navbar footer-menu p-0" style="z-index: 99999999">
+      <div class="container">
+        <div class="lg-secreen-buttons">
+          <a
+            href="/admin/admin-home"
+            type="button"
+            class="btn btn-outline-light border-0 me-3"
+          >
+            Home
+          </a>
+          <a
+            href="/admin/posts"
+            type="button"
+            class="btn btn-outline-light border-0 me-3"
+            >Posts</a
+          >
+          <a
+            href="/admin/admin-about"
+            type="button"
+            class="btn btn-outline-light border-0 me-3"
+          >
+            About
+          </a>
+          <a
+            href="/admin/admin-project"
+            type="button"
+            class="btn btn-outline-light border-0 me-3"
+          >
+            Projects
+          </a>
+          <a
+            href="/admin/admin-contact"
+            type="button"
+            class="btn btn-outline-light border-0 position-relative me-3"
+          >
+            Inbox
+          </a>
+          <a
+            href="/"
+            target="_blank"
+            type="button"
+            class="btn btn-outline-light border-0 position-relative me-3"
+          >
+            Home Page
+          </a>
+          <a
+            href="/admin/logout"
+            type="button"
+            class="btn btn-outline-danger border-0 me-3"
+          >
+            Logout
+          </a>
+        </div>
+        <!-- tel icons -->
+        <div class="sm-secreen-buttons p-0">
+          <a
+            href="/admin/admin-home"
+            type="button"
+            class="btn btn-outline-light border-0 me-2"
+          >
+            <i class="bi bi-house mt-0 mb-0"></i>
+          </a>
+          <a
+            href="/admin/posts"
+            type="button"
+            class="btn btn-outline-light border-0 me-2"
+          >
+            <i class="bi bi-card-text"></i>
+          </a>
+          <a
+            href="/admin/admin-about"
+            type="button"
+            class="btn btn-outline-light border-0 me-2"
+          >
+            <i class="bi bi-file-earmark-person"></i>
+          </a>
+          <a
+            href="/admin/admin-project"
+            type="button"
+            class="btn btn-outline-light border-0 me-2"
+          >
+            <i class="bi bi-kanban"></i>
+          </a>
+          <a
+            href="/"
+            target="_blank"
+            type="button"
+            class="btn btn-outline-light border-0 me-2"
+          >
+            <i class="bi bi-house-heart"></i>
+          </a>
+          <a
+            href="/admin/admin-contact"
+            type="button"
+            class="btn btn-outline-light border-0 me-2"
+          >
+            <i class="bi bi-envelope"></i>
+          </a>
+          <a
+            href="/admin/logout"
+            type="button"
+            class="btn btn-outline-light border-0 me-2"
+          >
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% else %} {% endif %}
+    <!-- menu ends -->
+
+    <!-- JAVASCRIPT -->
+    <script src=" {{url_for('static', filename= 'js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/custom/custom.js')}}"></script>
+  </body>
+</html>

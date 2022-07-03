@@ -1,0 +1,159 @@
+{% extends "Admin/admin-base.html" %} {% block title %} {{user}} - Admin Panel
+{% endblock%} {%block content%}
+
+<div class="card">
+  <div class="card-header"><h6>POSTS</h6></div>
+  <div class="card-body">
+    <!-- content starts -->
+
+    <p>
+      <button
+        class="btn btn-outline-dark"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseList"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        <i class="bi bi-list-check"></i>
+      </button>
+
+      <button
+        class="btn btn-outline-primary fw-bolder"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseCreate"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        <i class="bi bi-plus-lg"></i> CREATE NEW
+      </button>
+    </p>
+
+    <!-- create a post starts -->
+    <div class="collapse mt-2" id="collapseCreate">
+      <div class="card rounded-0 card-body">
+        <form method="POST">
+          <div class="input-group flex-nowrap mb-3">
+            <span class="input-group-text" id="addon-wrapping"
+              ><i class="bi bi-cursor-text fw-bolder"></i
+            ></span>
+            <input
+              type="text"
+              class="form-control fw-bolder"
+              placeholder="Title"
+              aria-label="Title"
+              id="title"
+              name="title"
+              aria-describedby="addon-wrapping"
+            />
+          </div>
+
+          <!-- editor starts -->
+          <textarea id="text" name="text"></textarea>
+          <!-- editor ends -->
+
+          <div align="right">
+            <button
+              type="submit"
+              id="submit_button"
+              class="btn btn-outline-danger fw-bolder mt-2"
+            >
+              PUBLISH
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- create a post ends -->
+
+    <!-- content starts -->
+    <div class="collapse show mt-2" id="collapseList">
+      <!-- post in list starts -->
+      <ul class="list-group rounded-0">
+        {% for post in posts|sort(attribute='id', reverse = True) %}
+        <li class="list-group-item d-flex flex-column justify-content-between">
+          <div class="d-flex w-100 justify-content-between mt-2 mb-0">
+            <h5 class="mb-4 writing-heading">
+              {{ post.title|truncate(50, True, '..') }}
+            </h5>
+            <small class="text-muted"
+              ><a href="/admin/like-post/{{post.id}}">like</a> | total like:
+              <span class="fw-bolder text-danger"> {{post.likes|length}} </span>
+              | {{ post.date_created }}
+              <div class="btn-group ms-3">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                ></button>
+                <ul class="dropdown-menu" id="pills-tab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <a
+                      href="/admin/delete-post/{{post.id}}"
+                      class="dropdown-item"
+                    >
+                      <i class="bi bi-trash-fill fw-bolder text-danger"></i>
+                      Delete</a
+                    >
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <a
+                      href="/admin/update-post/{{post.id}}"
+                      class="dropdown-item"
+                    >
+                      <i class="bi bi-pencil-fill fw-bolder"></i> Edit
+                    </a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <a
+                      href="/writing-detail/{{post.id}}"
+                      target="_blank"
+                      class="dropdown-item"
+                      ><i class="bi bi-eye-fill"></i> Preview</a
+                    >
+                  </li>
+                </ul>
+              </div></small
+            >
+          </div>
+
+          <!-- tab stars -->
+
+          <span class="text-area-style bg-light px-2">
+            {{ post.text|truncate(50, True, '..')|safe }}
+          </span>
+
+          <!-- tab ends -->
+          <small class="text-muted"></small>
+        </li>
+        {% endfor %}
+      </ul>
+      <!-- post in list ends -->
+    </div>
+    <!-- content ends -->
+  </div>
+</div>
+
+<script src="{{url_for('static', filename = 'js/custom/ckeditor/ckeditor.js')}}"></script>
+<script>
+  ClassicEditor.create(document.querySelector("#text"), {
+    // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+  })
+    .then((editor) => {
+      window.editor = editor;
+    })
+    .catch((err) => {
+      console.error(err.stack);
+    });
+
+  $(function () {
+    $("#text").ckeditor({
+      toolbar: "Full",
+      enterMode: CKEDITOR.ENTER_BR,
+      shiftEnterMode: CKEDITOR.ENTER_P,
+    });
+  });
+</script>
+
+{% endblock %}

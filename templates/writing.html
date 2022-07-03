@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block title %}Posts - Galip Argun{% endblock %} {%
+block content %}
+
+<!-- my recent posts start -->
+<div class="baslik-customize py-3 mt-5">
+  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
+    >My Posts</span
+  >
+</div>
+<div class="card mt-2 mb-5 shadow">
+  <div class="card-body customize p-0">
+    <ol class="list-group p-2">
+      {% for post in posts|sort(attribute='id', reverse = True) %}
+      <!-- {{post.id}} list item starts -->
+      <a href="/writing-detail/{{post.id}}" class="text-decoration-none">
+        <li
+          class="list-group-item put-hover border-0 pt-2 pb-2 rounded d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="writing-heading">
+              {{ post.title|truncate(50, True, '..') }}
+            </div>
+            <span class="writing-date">{{ post.date_created }}</span>
+          </div>
+          <span class="badge bg-primary rounded-pill"
+            >{{post.likes|length}}</span
+          >
+        </li></a
+      >
+      <!-- {{post.id}} list item ends -->
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+<!-- my recent posts end -->
+
+{% endblock %}

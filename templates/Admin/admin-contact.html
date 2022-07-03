@@ -1,0 +1,28 @@
+{% extends "Admin/admin-base.html" %} {% block title %} {{user}} - Admin Panel
+{% endblock%} {%block content%}
+
+<div class="card">
+  <div class="card-header"><h6>MESSAGES</h6></div>
+  <div class="card-body">
+    <!-- content starts -->
+
+    <div class="list-group">
+      {% for message in messages|sort(attribute='id', reverse = True) %}
+      <a
+        href="mailto:{{ message.mail}}"
+        class="list-group-item list-group-item-action"
+      >
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{message.name}}</h5>
+          <small class="text-muted">{{message.date_created}}</small>
+        </div>
+        <p class="mb-1">{{message.message}}</p>
+        <small class="text-muted"></small>
+      </a>
+      {% endfor %}
+    </div>
+    <!-- content ends -->
+  </div>
+</div>
+
+{% endblock %}
