@@ -1,9 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, Flask
 from . import db
 from .models import User, About, Post, Project,Contact
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-
 
 auth = Blueprint('auth', __name__)
 
@@ -25,14 +24,7 @@ def sign_in():
                 flash('password is incorrect.', category="error")
         else:
             flash('your username does not exist.', category="error")
-    if current_user.is_authenticated:
-        posts = Post.query.all()
-        projects = Project.query.all()
-        contacts = Contact.query.all()
-        about = About.query.filter_by(id='1').first()
-        return render_template('Admin/admin-home.html', user=current_user, posts=posts, about=about, projects=projects, contacts=contacts)
-    else:
-        return render_template('Admin/login.html', user=current_user)
+    return render_template('Admin/login.html', user=current_user)
 
 @auth.route('/logout')
 @login_required

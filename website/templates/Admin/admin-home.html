@@ -1,0 +1,75 @@
+{% extends "Admin/admin-base.html" %} {% block title %} {{user}} Welcome! -
+Admin Panel {% endblock%} {%block content%}
+
+<div class="row">
+  <div class="col-12 col-md-6 mt-3">
+    <!-- about update starts -->
+    <div class="card widget-flat shadow">
+      <div class="card-body bg-primary">
+        <div class="float-end">
+          <i class="bi bi-code-square text-white"></i>
+        </div>
+        <h5 class="text-white fw-normal mt-0" title="Growth">
+          Last Update of About:
+        </h5>
+        <h3 class="mt-3 mb-3 text-white">
+          {{ about.date_created.strftime('%B %d, %Y') }}
+        </h3>
+      </div>
+    </div>
+    <!-- about update ends -->
+  </div>
+  <div class="col-12 col-md-6 mt-3">
+    <!-- visit "index" starts -->
+    <div class="card widget-flat rounded-0 shadow">
+      <div class="card-body">
+        <div class="float-end">
+          <i class="bi bi-activity"></i>
+        </div>
+        <h5 class="text-muted fw-normal mt-0" title="Growth">
+          Total Visit - Homepage:
+        </h5>
+        <h3 class="mt-3 mb-3">{{ index_visit }}</h3>
+      </div>
+    </div>
+    <!-- visit "index" ends -->
+  </div>
+
+  <div class="col-12 col-md-12 mt-3">
+    <!-- visit "index" starts -->
+    <div class="card widget-flat rounded-0 shadow">
+      <div class="card-body">
+        <div class="float-end">
+          <i class="bi bi-activity"></i>
+        </div>
+        <h5 class="text-muted fw-normal mt-0" title="Growth">
+          Total Visit - Posts:
+        </h5>
+
+        <div class="row px-3">
+          <div class="col-8 bg-light p-2">Post Title</div>
+          <div class="col-4 bg-light p-2">
+            <div align="right">Read</div>
+          </div>
+          {%for post in posts%}
+          <div class="col-8 p-1">
+            <span class="mt-3 mb-3 writing-heading ps-1">
+              <a href="/writing-detail/{{post.id}}" target="_blank" class="link"
+                >{{ post.title|truncate(50, True, '..') }}</a
+              >
+            </span>
+          </div>
+          <div class="col-4 p-1">
+            <div class="d-inline-flex bd-highlight float-end p-1">
+              {{post.likes|length}}
+            </div>
+          </div>
+          {%endfor%}
+        </div>
+      </div>
+    </div>
+    <!-- visit "index" ends -->
+  </div>
+</div>
+
+{% endblock %}

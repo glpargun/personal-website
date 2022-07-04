@@ -1,13 +1,11 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, Flask
+from genericpath import exists
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 from .models import Post, User, Like, About, Project, Contact, Visit
 from . import db
 import socket
 from datetime import datetime
-
-
-app = Flask(__name__)
 
 views = Blueprint('views', __name__)
 
@@ -29,7 +27,13 @@ def home_page():
 
     posts = Post.query.order_by(-Post.id).limit(7).all()
     projects = Project.query.order_by(-Project.id).limit(3).all()
-    return render_template('index.html', posts=posts, projects=projects, user=current_user)
+
+    for item in posts:
+        page_check = f'writing-detail-{item.id}'
+        reads = Visit.query.filter_by(page=page_check).count()
+
+
+    return render_template('index.html', posts=posts, projects=projects, reads=reads, user=current_user)
 
 @views.route('/writing')
 def writing_page():
@@ -47,6 +51,30 @@ def writing_page():
 
     posts = Post.query.all()
     return render_template('writing.html', posts=posts, user=current_user)
+
+@views.route('/writing-detail/<id>', methods=['GET'])
+def writingdetail_page(id):
+
+
+    # ip adress kayıt starts
+
+    IPAddr = socket.gethostbyname(socket.gethostname())
+    visit = datetime.now()
+    page = f"writing-detail-{id}"
+    visit = Visit(ipaddress=IPAddr, visit=visit, page=page)
+    db.session.add(visit)
+    db.session.commit()
+
+    # ip adress kayıt ends
+
+    like = Like(ipaddress=IPAddr, post_id=id)
+    db.session.add(like)
+    db.session.commit()
+
+    post = Post.query.filter_by(id=id).first()
+    read = Like.query.filter_by(post_id=id).count()
+    return render_template('writing-detail.html', post=post, read=read, user=current_user)
+
 
 @views.route('/about-me')
 def aboutme_page():
@@ -82,7 +110,7 @@ def timeline_page():
 
     return render_template('timeline.html', user=current_user)
 
-@views.route('/admin/update-post/<id>', methods=['GET', 'POST'])
+@views.route('/Admin/update-post/<id>', methods=['GET', 'POST'])
 @login_required
 def updatepost_page(id):
     post = Post.query.filter_by(id=id).first()
@@ -96,27 +124,8 @@ def updatepost_page(id):
         flash('Post updated', category='success')
         return redirect(url_for('views.adminposts_page', user=current_user, post=post))
 
-    return render_template('Admin/update-post.html', post=post, user=current_user)
+    return render_template('/Admin/update-post.html', post=post, user=current_user)
 
-
-@views.route('/writing-detail/<id>', methods=['GET'])
-def writingdetail_page(id):
-
-
-    # ip adress kayıt starts
-
-    IPAddr = socket.gethostbyname(socket.gethostname())
-    visit = datetime.now()
-    page = f"writing-detail-{id}"
-    visit = Visit(ipaddress=IPAddr, visit=visit, page=page)
-    db.session.add(visit)
-    db.session.commit()
-
-    # ip adress kayıt ends
-
-
-    post = Post.query.filter_by(id=id).first()
-    return render_template('writing-detail.html', post=post, user=current_user)
 
 @views.route('/contact-me', methods=['GET', 'POST'])
 def contact_page():
@@ -154,17 +163,24 @@ def contact_page():
             return redirect(url_for('views.contact_page'))
     return render_template('contact.html', user=current_user)
 
+@views.route("/admin/")
+def directadmin():
+    return redirect(url_for("views.adminhome_page"))
 
 @views.route("/admin/admin-home")
 @views.route("/admin/home")
 @login_required
 def adminhome_page():
-    posts = Post.query.all()
+    today = datetime.now()
+    posts = Post.query.order_by(-Post.id).limit(15).all()
     projects = Project.query.all()
     contacts = Contact.query.all()
     about = About.query.filter_by(id='1').first()
+    index_visit = Visit.query.filter_by(page='home-page').count()
+    like = Like.query.all()
 
-    return render_template('Admin/admin-home.html', user=current_user, posts=posts, about=about, projects=projects, contacts=contacts)
+    return render_template('Admin/admin-home.html', today=today, like=like,
+     index_visit=index_visit, user=current_user, posts=posts, about=about, projects=projects, contacts=contacts)
 
 @views.route("/admin/posts", methods=['GET', 'POST'])
 @login_required
@@ -192,7 +208,7 @@ def adminposts_page():
             flash('Post published!', category='success')
 
     posts = Post.query.all()
-    return render_template('Admin/Posts.html', user=current_user, posts=posts)
+    return render_template('/Admin/Posts.html', user=current_user, posts=posts)
 
 @views.route("/admin/delete-post/<id>")
 @login_required
@@ -209,52 +225,10 @@ def delete_post(id):
     
     return redirect(url_for('views.adminposts_page'))
 
-@views.route("/admin/like-post/<post_id>", methods=['GET'])
-@login_required
-def like(post_id):
-
-    IPAddr = socket.gethostbyname(socket.gethostname())
-
-    post = Post.query.filter_by(id=post_id)
-    like = Like.query.filter_by(ipaddress=IPAddr, post_id=post_id).first()
-
-    if not post:
-        flash('Post does not exist!', category='error')
-    elif like:
-        db.session.delete(like)
-        db.session.commit()
-    else:
-        like = Like(ipaddress=IPAddr, post_id=post_id)
-        db.session.add(like)
-        db.session.commit()
-    
-    return redirect(url_for('views.adminposts_page'))
-
-@views.route("/like-post/<post_id>", methods=['GET'])
-@login_required
-def like_post(post_id):
-
-    IPAddr = socket.gethostbyname(socket.gethostname())
-
-    post = Post.query.filter_by(id=post_id)
-    like = Like.query.filter_by(ipaddress=IPAddr, post_id=post_id).first()
-
-    if not post:
-        flash('Post does not exist!', category='error')
-    elif like:
-        db.session.delete(like)
-        db.session.commit()
-    else:
-        like = Like(ipaddress=IPAddr, post_id=post_id)
-        db.session.add(like)
-        db.session.commit()
-    
-    return redirect(url_for('views.writingdetail_page', id=post_id))
-
-@views.route('/admin/admin-about', methods=['POST', 'GET'])
+@views.route("admin/admin-about", methods=['POST', 'GET'])
 @login_required
 def adminabout_page():
-    about = About.query.filter_by(id='1').first()
+    about = About.query.filter_by(id=1).first()
 
     if request.method == "POST":
         header = request.form.get('header')
@@ -293,7 +267,7 @@ def adminabout_page():
         flash('About page updated.', category='success')
         return redirect(url_for('views.adminabout_page'))
     
-    return render_template("admin/admin-about.html", user=current_user, about=about)
+    return render_template("/Admin/admin-about.html", user=current_user, about=about)
 
 
 @views.route('/admin/admin-project', methods=['POST', 'GET'])
@@ -303,7 +277,7 @@ def project():
     if request.method == 'POST':
         name = request.form.get('name')
         description = request.form.get('description')
-        photo = request.files.get('photo')
+        photo = request.form.get('photo')
         status = request.form.get('status')
         
         name_exists = Project.query.filter_by(name=name).first()
@@ -322,7 +296,7 @@ def project():
             flash('Project is succesfully added.', category='success')
 
     projects = Project.query.all()
-    return render_template('admin/admin-project.html', user=current_user, projects=projects)
+    return render_template('/Admin/admin-project.html', user=current_user, projects=projects)
 
 
 @views.route("/admin/delete-project/<id>")
@@ -344,7 +318,7 @@ def delete_project(id):
 @login_required
 def admincontact():
     messages = Contact.query.all()
-    return render_template('admin/admin-contact.html', user=current_user, messages=messages)
+    return render_template('/Admin/admin-contact.html', user=current_user, messages=messages)
 
 @views.route("/admin/admin-project-edit/<id>", methods=['POST', 'GET'])
 @login_required
@@ -366,4 +340,4 @@ def adminprojectedit(id):
         flash('project is changed.', category='success')
         return redirect(url_for('views.project'))
 
-    return render_template('admin/admin-project-edit.html', user=current_user, projects=projects)
+    return render_template('/Admin/admin-project-edit.html', user=current_user, projects=projects)

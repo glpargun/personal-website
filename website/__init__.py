@@ -2,15 +2,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-import urllib.request
-import os
 
 db = SQLAlchemy()
 DB_NAME = 'database.db'
 
 
 def create_app():
-    app = Flask(__name__)
+    app=Flask(__name__,template_folder='templates/')
     app.config['SECRET_KEY'] = 'gsdhajweu gda baasu'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     UPLOAD_FOLDER = "static/image/Upload/"
@@ -22,7 +20,7 @@ def create_app():
     from .auth import auth
 
     app.register_blueprint(views, url_prefix='/')
-    app.register_blueprint(auth, url_prefix='/admin')
+    app.register_blueprint(auth, url_prefix='/admin/')
 
 
     from .models import User, Post, Like, About, Project, Contact, Visit
