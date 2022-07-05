@@ -7,7 +7,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 auth = Blueprint('auth', __name__)
 
 @auth.route("/Login", methods=['GET','POST'])
-@auth.route("/", methods=['GET','POST'])
 def sign_in():
     if request.method == 'POST':
         username = request.form.get("username")
@@ -65,5 +64,4 @@ def about():
     db.session.commit()
 
     return 'created'
-
 

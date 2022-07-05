@@ -4,7 +4,9 @@
 <div class="card">
   <div class="card-header">
     <span class="fw-bolder">ABOUT ME</span> - Last Update:
-    <span class="fw-bolder text-danger">{{ about.date_created }}</span>
+    <span class="fw-bolder text-danger"
+      >{{ about.date_created.strftime('%B %m, %Y') }}</span
+    >
   </div>
   <div class="card-body">
     <form method="POST">
@@ -15,6 +17,7 @@
         <textarea
           id="header"
           name="header"
+          rows="12"
           class="form-control"
           aria-label="With textarea"
         >
@@ -32,6 +35,7 @@
           id="random_facts"
           name="random_facts"
           class="form-control"
+          rows="10"
           aria-label="Random Facts"
         >
 {{ about.random_facts }}</textarea

@@ -1,11 +1,10 @@
-from genericpath import exists
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from sqlalchemy import desc
+from sqlalchemy import func
 from .models import Post, User, Like, About, Project, Contact, Visit
 from . import db
 import socket
-from datetime import datetime
+from datetime import datetime, timedelta, date
 
 views = Blueprint('views', __name__)
 
@@ -171,16 +170,40 @@ def directadmin():
 @views.route("/admin/home")
 @login_required
 def adminhome_page():
-    today = datetime.now()
     posts = Post.query.order_by(-Post.id).limit(15).all()
     projects = Project.query.all()
     contacts = Contact.query.all()
     about = About.query.filter_by(id='1').first()
-    index_visit = Visit.query.filter_by(page='home-page').count()
+    index_total_visit = Visit.query.filter_by(page='home-page').count()
+    
+    # index data
+    index_one_month_visit = Visit.query.filter(Visit.page=='home-page').filter(Visit.visit > date.today() - timedelta(days=30)).count()
+    index_one_week_visit = Visit.query.filter(Visit.page=='home-page').filter(Visit.visit > date.today() - timedelta(days=7)).count()
+    index_one_day_visit = Visit.query.filter(Visit.page=='home-page').filter(Visit.visit > date.today() - timedelta(days=1)).count()
+
+    # about-me data
+    about_me_one_week_visit = Visit.query.filter(Visit.page=='about-me').filter(Visit.visit > date.today() - timedelta(days=7)).count()
+    about_me_one_day_visit = Visit.query.filter(Visit.page=='about-me').filter(Visit.visit > date.today() - timedelta(days=1)).count()
+
+    # timeline data
+    timeline_one_month_visit = Visit.query.filter(Visit.page=='timeline').filter(Visit.visit > date.today() - timedelta(days=30)).count()
+    timeline_one_week_visit = Visit.query.filter(Visit.page=='timeline').filter(Visit.visit > date.today() - timedelta(days=7)).count()
+    timeline_one_day_visit = Visit.query.filter(Visit.page=='timeline').filter(Visit.visit > date.today() - timedelta(days=1)).count()
+
+    # contact-me data
+    contact_one_month_visit = Visit.query.filter(Visit.page=='contact-page').filter(Visit.visit > date.today() - timedelta(days=30)).count()
+    contact_one_week_visit = Visit.query.filter(Visit.page=='contact-page').filter(Visit.visit > date.today() - timedelta(days=7)).count()
+    contact_one_day_visit = Visit.query.filter(Visit.page=='contact-page').filter(Visit.visit > date.today() - timedelta(days=1)).count()
+
+
     like = Like.query.all()
 
-    return render_template('Admin/admin-home.html', today=today, like=like,
-     index_visit=index_visit, user=current_user, posts=posts, about=about, projects=projects, contacts=contacts)
+    return render_template('Admin/admin-home.html', index_one_day_visit=index_one_day_visit, index_one_week_visit=index_one_week_visit, index_total_visit=index_total_visit, 
+    about_me_one_week_visit=about_me_one_week_visit, about_me_one_day_visit=about_me_one_day_visit, 
+    index_one_month_visit=index_one_month_visit, like=like,
+    contact_one_month_visit = contact_one_month_visit, contact_one_day_visit=contact_one_day_visit, contact_one_week_visit=contact_one_week_visit,
+    timeline_one_month_visit = timeline_one_month_visit, timeline_one_week_visit=timeline_one_week_visit, timeline_one_day_visit=timeline_one_day_visit,
+    user=current_user, posts=posts, about=about, projects=projects, contacts=contacts)
 
 @views.route("/admin/posts", methods=['GET', 'POST'])
 @login_required

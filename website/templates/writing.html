@@ -17,8 +17,11 @@ block content %}
           class="list-group-item put-hover border-0 pt-2 pb-2 rounded d-flex justify-content-between align-items-start"
         >
           <div class="ms-2 me-auto">
-            <div class="writing-heading">
+            <div class="writing-heading d-none d-md-block">
               {{ post.title|truncate(50, True, '..') }}
+            </div>
+            <div class="writing-heading d-block d-md-none">
+              {{ post.title|truncate(20, True, '..') }}
             </div>
             <span class="writing-date"
               >{{ post.date_created.strftime('%B %m, %Y') }}</span

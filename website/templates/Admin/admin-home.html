@@ -29,10 +29,72 @@ Admin Panel {% endblock%} {%block content%}
         <h5 class="text-muted fw-normal mt-0" title="Growth">
           Total Visit - Homepage:
         </h5>
-        <h3 class="mt-3 mb-3">{{ index_visit }}</h3>
+        <h3 class="mt-3 mb-3">{{ index_total_visit }}</h3>
       </div>
     </div>
     <!-- visit "index" ends -->
+  </div>
+
+  <div class="col-12 mt-5 mb-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border-0 shadow">
+          <div class="card-header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="fs-5 fw-bold mb-0">Page visits</h2>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th class="border-bottom" scope="col">Page name</th>
+                  <th class="border-bottom" scope="col">Month Views</th>
+                  <th class="border-bottom" scope="col">Week Views</th>
+                  <th class="border-bottom" scope="col">Day Views</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th class="text-gray-900" scope="row">/index</th>
+                  <td class="text-gray-500">{{ index_one_month_visit }}</td>
+                  <td class="text-gray-500">{{ index_one_week_visit }}</td>
+                  <td class="fw-bolder text-gray-500">
+                    {{ index_one_day_visit }}
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-gray-900" scope="row">/about-me</th>
+                  <td class="text-gray-500">-</td>
+                  <td class="text-gray-500">{{ about_me_one_week_visit }}</td>
+                  <td class="fw-bolder text-gray-500">
+                    {{ about_me_one_day_visit }}
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-gray-900" scope="row">/timeline</th>
+                  <td class="text-gray-500">{{timeline_one_month_visit}}</td>
+                  <td class="text-gray-500">{{timeline_one_week_visit}}</td>
+                  <td class="fw-bolder text-gray-500">
+                    {{timeline_one_day_visit}}
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-gray-900" scope="row">/contact-me</th>
+                  <td class="text-gray-500">{{contact_one_month_visit}}</td>
+                  <td class="text-gray-500">{{contact_one_week_visit}}</td>
+                  <td class="fw-bolder text-gray-500">
+                    {{contact_one_day_visit}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="col-12 col-md-12 mt-3">

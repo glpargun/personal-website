@@ -75,13 +75,21 @@
         <li class="list-group-item d-flex flex-column justify-content-between">
           <div class="d-flex w-100 justify-content-between mt-2 mb-0">
             <h5 class="mb-4 writing-heading">
-              {{ post.title|truncate(40, True, '..') }}
+              <div class="writing-heading d-none d-md-block">
+                {{ post.title|truncate(50, True, '..') }}
+              </div>
+              <div class="writing-heading d-block d-md-none">
+                {{ post.title|truncate(10, True, '..') }}
+              </div>
             </h5>
             <small class="text-muted"
-              >total read:
-              <span class="fw-bolder text-danger"> {{post.likes|length}} </span>
-              | {{ post.date_created }}
-              <div class="btn-group ms-3">
+              ><i class="bi bi-eyeglasses me-1"
+                ><span class="fw-bolder text-danger">
+                  {{post.likes|length}}
+                </span></i
+              >
+              | {{ post.date_created.strftime('%B %m, %Y') }}
+              <div class="btn-group ms-1">
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-danger dropdown-toggle"
