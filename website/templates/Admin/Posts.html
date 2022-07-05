@@ -75,10 +75,10 @@
         <li class="list-group-item d-flex flex-column justify-content-between">
           <div class="d-flex w-100 justify-content-between mt-2 mb-0">
             <h5 class="mb-4 writing-heading">
-              {{ post.title|truncate(50, True, '..') }}
+              {{ post.title|truncate(40, True, '..') }}
             </h5>
             <small class="text-muted"
-              ><a href="/admin/like-post/{{post.id}}">like</a> | total like:
+              >total read:
               <span class="fw-bolder text-danger"> {{post.likes|length}} </span>
               | {{ post.date_created }}
               <div class="btn-group ms-3">
