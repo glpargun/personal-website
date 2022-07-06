@@ -20,6 +20,9 @@ class Post(db.Model):
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     author = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     likes = db.relationship('Like', backref='post', passive_deletes=True)
+    kapak_photo = db.Column(db.String, nullable=False, default="0")
+    image = db.Column(db.String, nullable=False, default="0")
+    photo = db.Column(db.String, nullable=False, default="0")
 
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -68,3 +71,9 @@ class Visit(db.Model):
     ipaddress = db.Column(db.Integer, nullable=False)
     visit = db.Column(db.DateTime(timezone=True), default=func.now())
     page = db.Column(db.String, nullable=True)
+
+class Upload(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+    photo = db.Column(db.String, nullable=False)
+    kategori = db.Column(db.Integer, nullable=False)

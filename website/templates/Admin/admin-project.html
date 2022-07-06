@@ -52,7 +52,7 @@ Admin Panel {% endblock%} {%block content%}
 
           <div class="col-2 p-2">
             <img
-              src="{{ project.photo }}"
+              src="{{url_for('static', filename= 'image/Upload/{}'.format(project.photo))}}"
               style="width: 150px; height: 150px"
               class="img-fluid rounded"
             />
@@ -92,7 +92,7 @@ Admin Panel {% endblock%} {%block content%}
             >
             <h5 class="card-title">{{ project.name }}</h5>
             <span class="card-text mt-0 p-0"
-              >{{ project.description|safe }} | {{ project.photo }}</span
+              >{{ project.description|safe }}</span
             >
           </div>
 
@@ -108,7 +108,7 @@ Admin Panel {% endblock%} {%block content%}
         role="tabpanel"
         aria-labelledby="create-tab"
       >
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
           <div class="input-group flex-nowrap mb-3 mt-3">
             <span class="input-group-text" id="name"
               ><i class="bi bi-cursor-text fw-bolder"></i
@@ -160,7 +160,7 @@ Admin Panel {% endblock%} {%block content%}
               ><i class="bi bi-image"></i
             ></span>
             <input
-              type="text"
+              type="file"
               class="form-control"
               aria-label="photo"
               id="photo"

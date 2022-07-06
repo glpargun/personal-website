@@ -59,19 +59,26 @@
         <div class="hr-line"></div>
         <div class="hr-line"></div>
       </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="p1"
-          ><i class="bi bi-image"></i>
-        </span>
-        <input
-          type="text"
-          class="form-control"
-          value="{{ about.p1 }}"
-          aria-label="photo 1"
+
+      <div class="form-floating mb-2">
+        <select
+          class="form-select"
           id="p1"
           name="p1"
-          aria-describedby="p1"
-        />
+          aria-label="Floating label select example"
+        >
+          <option id="p1" name="p1" value="1" selected>{{ about.p1 }}</option>
+          {% for uploads in uploads%} {%if uploads.kategori == 1%}
+          <option
+            id="p1"
+            name="p1"
+            value="{{url_for('static', filename= 'image/Upload/{}'.format(uploads.photo))}}"
+          >
+            {{uploads.photo}}
+          </option>
+          {%endif%} {%endfor%}
+        </select>
+        <label for="status" class="fw-bolder">Photo 1: </label>
       </div>
 
       <div class="input-group mb-3">
@@ -93,19 +100,27 @@
         <div class="hr-line"></div>
         <div class="hr-line"></div>
       </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="p2"
-          ><i class="bi bi-image"></i>
-        </span>
-        <input
-          type="text"
-          class="form-control"
-          value="{{ about.p2 }}"
-          aria-label="photo 2"
+      <div class="form-floating mb-2">
+        <select
+          class="form-select"
           id="p2"
           name="p2"
-          aria-describedby="p2"
-        />
+          aria-label="Floating label select example"
+        >
+          <option id="p2" name="p2" value="{{ about.p1 }}" selected>
+            {{ about.p1 }}
+          </option>
+          {% for uploads in uploads%} {%if uploads.kategori == 1%}
+          <option
+            id="p2"
+            name="p2"
+            value="{{url_for('static', filename= 'image/Upload/{}'.format(uploads.photo))}}"
+          >
+            {{uploads.photo}}
+          </option>
+          {%endif%} {%endfor%}
+        </select>
+        <label for="status" class="fw-bolder">Photo 2: </label>
       </div>
 
       <div class="input-group mb-3">
@@ -127,19 +142,27 @@
         <div class="hr-line"></div>
         <div class="hr-line"></div>
       </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="p3"
-          ><i class="bi bi-image"></i>
-        </span>
-        <input
-          type="text"
-          class="form-control"
-          value="{{ about.p3 }}"
-          aria-label="photo 3"
+      <div class="form-floating mb-2">
+        <select
+          class="form-select"
           id="p3"
           name="p3"
-          aria-describedby="p3"
-        />
+          aria-label="Floating label select example"
+        >
+          <option id="p3" name="p3" value="{{ about.p1 }}" selected>
+            {{ about.p1 }}
+          </option>
+          {% for uploads in uploads%} {%if uploads.kategori == 1%}
+          <option
+            id="p3"
+            name="p3"
+            value="{{url_for('static', filename= 'image/Upload/{}'.format(uploads.photo))}}"
+          >
+            {{uploads.photo}}
+          </option>
+          {%endif%} {%endfor%}
+        </select>
+        <label for="status" class="fw-bolder">Photo 3: </label>
       </div>
 
       <div class="input-group mb-3">
@@ -161,19 +184,27 @@
         <div class="hr-line"></div>
         <div class="hr-line"></div>
       </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="p4"
-          ><i class="bi bi-image"></i>
-        </span>
-        <input
-          type="text"
-          class="form-control"
-          value="{{ about.p4 }}"
-          aria-label="photo 4"
+      <div class="form-floating mb-2">
+        <select
+          class="form-select"
           id="p4"
           name="p4"
-          aria-describedby="p4"
-        />
+          aria-label="Floating label select example"
+        >
+          <option id="p4" name="p4" value="{{ about.p1 }}" selected>
+            {{ about.p1 }}
+          </option>
+          {% for uploads in uploads%} {%if uploads.kategori == 1%}
+          <option
+            id="p4"
+            name="p4"
+            value="{{url_for('static', filename= 'image/Upload/{}'.format(uploads.photo))}}"
+          >
+            {{uploads.photo}}
+          </option>
+          {%endif%} {%endfor%}
+        </select>
+        <label for="status" class="fw-bolder">Photo 4: </label>
       </div>
 
       <div class="input-group mb-3">
@@ -195,19 +226,27 @@
         <div class="hr-line"></div>
         <div class="hr-line"></div>
       </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="p5"
-          ><i class="bi bi-image"></i>
-        </span>
-        <input
-          type="text"
-          class="form-control"
-          value="{{ about.p5 }}"
-          aria-label="photo 5"
-          aria-describedby="p5"
+      <div class="form-floating mb-2">
+        <select
+          class="form-select"
           id="p5"
           name="p5"
-        />
+          aria-label="Floating label select example"
+        >
+          <option id="p5" name="p5" value="{{ about.p1 }}" selected>
+            {{ about.p1 }}
+          </option>
+          {% for uploads in uploads%} {%if uploads.kategori == 1%}
+          <option
+            id="p5"
+            name="p5"
+            value="{{url_for('static', filename= 'image/Upload/{}'.format(uploads.photo))}}"
+          >
+            {{uploads.photo}}
+          </option>
+          {%endif%} {%endfor%}
+        </select>
+        <label for="status" class="fw-bolder">Photo 5: </label>
       </div>
 
       <div class="input-group mb-3">

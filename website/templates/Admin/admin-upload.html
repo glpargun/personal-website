@@ -1,0 +1,92 @@
+{% extends "Admin/admin-base.html" %} {% block title %} {{user}} - Admin Panel
+{% endblock%} {%block content%}
+
+<div class="card">
+  <div class="card-header"><h6>UPLOAD</h6></div>
+  <div class="card-body pb-4">
+    <div class="card-title">
+      You can upload photos or documents by one by, and get links to use.
+    </div>
+    <!-- content starts -->
+
+    <form method="POST" enctype="multipart/form-data">
+      <div class="input-group flex-nowrap mb-3 mt-3">
+        <span class="input-group-text" id="photo"
+          ><i class="bi bi-image"></i
+        ></span>
+        <input
+          type="file"
+          class="form-control"
+          aria-label="photo"
+          id="photo"
+          name="photo"
+          aria-describedby="photo"
+        />
+      </div>
+
+      <div class="form-floating mt-3">
+        <select
+          class="form-select"
+          id="kategori"
+          name="kategori"
+          aria-label="Floating label select example"
+        >
+          <option id="kategori" name="kategori" value="1" selected>
+            Kategori Seç
+          </option>
+          <option id="kategori" name="kategori" value="1">About</option>
+          <option id="kategori" name="kategori" value="2">Post</option>
+          <option id="kategori" name="kategori" value="3">Project</option>
+          <option id="kategori" name="kategori" value="4">User</option>
+        </select>
+        <label for="status">Status of Project</label>
+      </div>
+
+      <div class="mt-2" align="right">
+        <button type="submit" class="btn btn-outline-dark mt-2 fw-bolder">
+          UPLOAD
+        </button>
+      </div>
+    </form>
+    <!-- content ends -->
+  </div>
+</div>
+
+<div class="card mt-4">
+  <div class="card-header"><h6>UPLOAD LIST</h6></div>
+  <div class="card-body pb-4">
+    <div class="row">
+      {%for uploads in uploads%}
+      <div class="row">
+        <div class="col-3">
+          <img
+            src="{{url_for('static', filename= 'image/Upload/{}'.format(uploads.photo))}}"
+            alt=""
+            class="img-fluid rounded mb-2"
+            style="width: 100px; height: 100px"
+          />
+        </div>
+        <div class="col-6">
+          <div>
+            {{url_for('static', filename=
+            'image/Upload/{}'.format(uploads.photo))}}
+          </div>
+        </div>
+        <div class="col-3">
+          <span class="me-3 text-danger fw-bolder"
+            >{%if uploads.kategori == 1%} About {%elif uploads.kategori == 2%}
+            Post {%elif uploads.kategori == 3%} Project {%elif uploads.kategori
+            == 4%} User {%else%} Yok {%endif%}
+          </span>
+          <a
+            href="/admin/admin-upload-delete/{{uploads.id}}"
+            class="btn btn-sm btn-outline-danger mb-2 fw-bolder"
+            >DELETE</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

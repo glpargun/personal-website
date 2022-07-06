@@ -91,7 +91,7 @@ block content %}
                 on plan
               </button>
               {% endif %}<br>
-          <img src="{{ project.photo }}" alt="" class="img-fluid rounded mb-2">
+          <img src="{{url_for('static', filename= 'image/Upload/{}'.format(project.photo))}}"  alt="{{project.title}}" class="img-fluid rounded mb-2" style="width: 100%; height: 250px">
           <h5 class="card-title">{{ project.name }}</h5>
           <span class="card-text pt-0 mt-0">{{ project.description|safe }}</span>
         </div>
@@ -135,4 +135,7 @@ block content %}
   </div>
 </div>
 <!-- my travel posts end -->
+
+
+
 {% endblock %}

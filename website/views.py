@@ -1,11 +1,17 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for,Response, Flask
 from flask_login import login_required, current_user
 from sqlalchemy import func
-from .models import Post, User, Like, About, Project, Contact, Visit
+from .models import Post, User, Like, About, Project, Contact, Visit, Upload
 from . import db
 import socket
 from datetime import datetime, timedelta, date
+from werkzeug.utils import secure_filename
+import os
+import uuid as uuid
 
+app = Flask(__name__)
+UPLOAD_FOLDER = "static/image/Upload/"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 views = Blueprint('views', __name__)
 
 @views.route('/')
@@ -27,12 +33,7 @@ def home_page():
     posts = Post.query.order_by(-Post.id).limit(7).all()
     projects = Project.query.order_by(-Project.id).limit(3).all()
 
-    for item in posts:
-        page_check = f'writing-detail-{item.id}'
-        reads = Visit.query.filter_by(page=page_check).count()
-
-
-    return render_template('index.html', posts=posts, projects=projects, reads=reads, user=current_user)
+    return render_template('index.html', posts=posts, projects=projects, user=current_user)
 
 @views.route('/writing')
 def writing_page():
@@ -252,6 +253,7 @@ def delete_post(id):
 @login_required
 def adminabout_page():
     about = About.query.filter_by(id=1).first()
+    uploads = Upload.query.order_by(-Upload.id).all()
 
     if request.method == "POST":
         header = request.form.get('header')
@@ -290,7 +292,7 @@ def adminabout_page():
         flash('About page updated.', category='success')
         return redirect(url_for('views.adminabout_page'))
     
-    return render_template("/Admin/admin-about.html", user=current_user, about=about)
+    return render_template("/Admin/admin-about.html", user=current_user, uploads=uploads, about=about)
 
 
 @views.route('/admin/admin-project', methods=['POST', 'GET'])
@@ -300,7 +302,7 @@ def project():
     if request.method == 'POST':
         name = request.form.get('name')
         description = request.form.get('description')
-        photo = request.form.get('photo')
+        photo = request.files.get('photo')
         status = request.form.get('status')
         
         name_exists = Project.query.filter_by(name=name).first()
@@ -309,11 +311,17 @@ def project():
         if name_exists or description_exists:
             flash('This text or title is already exist!', category='error')
 
-        elif not name or not description or not photo or not status:
+        elif not name or not description or not status:
             flash('some places are empty, fill it.', category='error')
         
+        elif not photo:
+            flash('photo does not exists.', category='error')
+        
         else:
-            project = Project(name=name, description=description, photo=photo, status=status)
+            filename=secure_filename(photo.filename)
+            photo_name = str(uuid.uuid1()) + "_" + filename
+            photo.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],photo_name))
+            project = Project(name=name, description=description, photo=photo_name, status=status)
             db.session.add(project)
             db.session.commit()
             flash('Project is succesfully added.', category='success')
@@ -364,3 +372,41 @@ def adminprojectedit(id):
         return redirect(url_for('views.project'))
 
     return render_template('/Admin/admin-project-edit.html', user=current_user, projects=projects)
+
+@views.route("/admin/admin-upload", methods=['POST', 'GET'])
+@login_required
+def adminupload():
+    uploads = Upload.query.all()
+    if request.method == 'POST':
+        photo = request.files.get('photo')
+        kategori = request.form.get('kategori')
+
+        if not photo:
+            flash('choose a file', category='error')
+            
+        else:           
+            filename=secure_filename(photo.filename)
+            photo_name = str(uuid.uuid1()) + "_" + filename
+            photo.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],photo_name))
+            upload = Upload(photo=photo_name, kategori=kategori)
+            db.session.add(upload)
+            db.session.commit()
+            flash("Uploaded!", category='success')
+            return redirect(url_for("views.adminupload"))
+
+    return render_template('/Admin/admin-upload.html', user=current_user, uploads=uploads)
+
+@views.route("/admin/admin-upload-delete/<id>", methods=['POST', 'GET'])
+@login_required
+def adminuploaddelete(id):
+    upload = Upload.query.filter_by(id=id).first()
+
+    if not project:
+        flash('Upload does not exist.', category='error')
+    
+    else:
+        db.session.delete(upload)
+        db.session.commit()
+        flash('Upload deleted successfuly.', category='success')
+    
+    return redirect(url_for('views.adminupload'))

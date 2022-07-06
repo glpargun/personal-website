@@ -11,8 +11,6 @@ def create_app():
     app=Flask(__name__,template_folder='templates/')
     app.config['SECRET_KEY'] = 'gsdhajweu gda baasu'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    UPLOAD_FOLDER = "static/image/Upload/"
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     
     db.init_app(app)
 
@@ -23,7 +21,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/admin/')
 
 
-    from .models import User, Post, Like, About, Project, Contact, Visit
+    from .models import User, Post, Like, About, Project, Contact, Visit, Upload
     
     create_database(app)
 
