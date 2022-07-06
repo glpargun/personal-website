@@ -71,14 +71,14 @@ def writingdetail_page(id):
     db.session.add(like)
     db.session.commit()
 
-    post = Post.query.filter_by(id=id).first()
+    post = Post.query.get_or_404(id)
     read = Like.query.filter_by(post_id=id).count()
     return render_template('writing-detail.html', post=post, read=read, user=current_user)
 
 
 @views.route('/about-me')
 def aboutme_page():
-
+    id=1
     # ip adress kayıt starts
 
     IPAddr = socket.gethostbyname(socket.gethostname())
@@ -90,7 +90,7 @@ def aboutme_page():
 
     # ip adress kayıt ends
 
-    abouts = About.query.filter_by(id='1').first()
+    abouts = About.query.get_or_404(id)
     return render_template('about-me.html', abouts=abouts, user=current_user)
 
 @views.route('/timeline')
@@ -117,12 +117,32 @@ def updatepost_page(id):
     if request.method == "POST":
         title_edit = request.form.get('title_edit')
         edit = request.form.get('edit')
-        found_text = Post.query.filter_by(id = id). first()
-        found_text.title = title_edit
-        found_text.text = edit
-        db.session.commit()
-        flash('Post updated', category='success')
-        return redirect(url_for('views.adminposts_page', user=current_user, post=post))
+        kapak_photo = request.files.get('kapak_photo')
+        kapak_photo_text = request.form.get('kapak_photo_text')
+
+        if request.files['kapak_photo'].filename == '':
+            found_text = Post.query.filter_by(id = id). first()
+            found_text.title = title_edit
+            found_text.text = edit
+            found_text.kapak_photo = kapak_photo_text
+            db.session.commit()
+            flash('Post updated', category='success')
+            return redirect(url_for('views.adminposts_page', user=current_user, post=post))
+            
+        else:
+            filename=secure_filename(kapak_photo.filename)
+            photo_name = str(uuid.uuid1()) + "_" + filename
+            kapak_photo.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],photo_name))
+            found_text = Post.query.filter_by(id = id). first()
+            found_text.title = title_edit
+            found_text.text = edit
+            found_text.kapak_photo = photo_name
+            upload = Upload(photo=photo_name, kategori='2')
+            db.session.add(upload)
+            db.session.commit()
+            flash('Post updated', category='success')
+            return redirect(url_for('views.adminposts_page', user=current_user, post=post))
+
 
     return render_template('/Admin/update-post.html', post=post, user=current_user)
 
@@ -212,6 +232,7 @@ def adminposts_page():
     if request.method == "POST":
         text = request.form.get('text')
         title = request.form.get('title')
+        kapak_photo = request.files.get('kapak_photo')
 
         text_exists = Post.query.filter_by(text=text).first()
         title_exists = Post.query.filter_by(title=title).first()
@@ -226,8 +247,13 @@ def adminposts_page():
             flash('Title area cannot be empth here!', category='error')
         
         else:
-            post = Post(text=text, title=title, author = current_user.id)
+            filename=secure_filename(kapak_photo.filename)
+            photo_name = str(uuid.uuid1()) + "_" + filename
+            kapak_photo.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],photo_name))
+            post = Post(text=text, title=title, author = current_user.id, kapak_photo=photo_name)
+            upload = Upload(photo=photo_name, kategori='2')
             db.session.add(post)
+            db.session.add(upload)
             db.session.commit()
             flash('Post published!', category='success')
 
@@ -359,17 +385,38 @@ def adminprojectedit(id):
     if request.method == 'POST':
         name = request.form.get('name')
         description = request.form.get('description')
-        photo = request.form.get('photo')
+        photo_text = request.form.get('photo_text')
+        photo = request.files.get('photo')
         status = request.form.get('status')
 
-        found_project = Project.query.filter_by(id=id).first()
-        found_project.name = name
-        found_project.description = description
-        found_project.photo = photo
-        found_project.status = status
-        db.session.commit()
-        flash('project is changed.', category='success')
-        return redirect(url_for('views.project'))
+        if request.files['photo'].filename == '':
+            found_project = Project.query.filter_by(id=id).first()
+            found_project.name = name
+            found_project.description = description
+            found_project.photo = photo_text
+            found_project.status = status
+            db.session.commit()
+            flash('project is changed.', category='success')
+            return redirect(url_for('views.project'))
+        
+        else:
+            filename=secure_filename(photo.filename)
+            photo_name = str(uuid.uuid1()) + "_" + filename
+            photo.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],photo_name))
+            found_project = Project.query.filter_by(id=id).first()
+            found_project.name = name
+            found_project.description = description
+            found_project.photo = photo_name
+            found_project.status = status
+            upload = Upload(photo=photo_name, kategori='3')
+            db.session.add(upload)
+            db.session.commit()
+            flash('Project updated', category='success')
+            return redirect(url_for('views.project'))
+
+
+
+        
 
     return render_template('/Admin/admin-project-edit.html', user=current_user, projects=projects)
 

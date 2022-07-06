@@ -411,10 +411,6 @@ span.text-area-writing-date {
     display: none;
   }
 
-  .container {
-    max-width: 900px;
-  }
-
   div.footer-menu {
     bottom: 0;
     height: 60px;

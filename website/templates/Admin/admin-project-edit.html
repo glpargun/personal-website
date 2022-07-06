@@ -7,7 +7,7 @@ Admin Panel {% endblock%} {%block content%}
   </div>
   <div class="card-body">
     <!-- create part starts -->
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
       <div class="input-group flex-nowrap mb-3 mt-3">
         <span class="input-group-text" id="name"
           ><i class="bi bi-cursor-text fw-bolder"></i
@@ -65,20 +65,87 @@ Admin Panel {% endblock%} {%block content%}
         </option>
       </select>
 
-      <div class="input-group flex-nowrap mb-3 mt-3">
-        <span class="input-group-text" id="photo"
-          ><i class="bi bi-camera"></i
-        ></span>
-        <input
-          type="text"
-          class="form-control fw-bolder"
-          aria-label="photo"
-          id="photo"
-          name="photo"
-          value="{{ projects.photo }}"
-          aria-describedby="photo"
-        />
+      <!-- post img starts -->
+
+      <ul class="nav nav-tabs mt-3 border-0" id="profile-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            type="button"
+            class="btn btn-outline-secondary active rounded-0 me-2"
+            id="link-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#link"
+            role="tab"
+            aria-controls="link"
+            aria-selected="true"
+          >
+            Link
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            type="button"
+            class="btn btn-outline-secondary rounded-0 me-2"
+            id="answers-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#answers"
+            role="tab"
+            aria-controls="Answers"
+            aria-selected="true"
+          >
+            UPLOAD
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-3 mb-3" id="profile-tabs">
+        <div
+          class="tab-pane fade show active"
+          id="link"
+          role="tabpanel"
+          aria-labelledby="link-tab"
+          align="left"
+        >
+          <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="photo"
+              ><i class="bi bi-camera"></i
+            ></span>
+            <input
+              type="text"
+              class="form-control fw-bolder"
+              aria-label="photo"
+              id="photo_text"
+              name="photo_text"
+              value="{{ projects.photo }}"
+              aria-describedby="photo"
+            />
+          </div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="answers"
+          role="tabpanel"
+          aria-labelledby="answers-tab"
+          align="left"
+        >
+          <div class="input-group flex-nowrap mb-3 mt-3">
+            <span class="input-group-text" id="photo"
+              ><i class="bi bi-image"></i
+            ></span>
+            <input
+              type="file"
+              class="form-control"
+              aria-label="photo"
+              id="photo"
+              name="photo"
+              aria-describedby="photo"
+            />
+          </div>
+        </div>
       </div>
+
+      <!-- post img ends -->
 
       <div align="right">
         <button

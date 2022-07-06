@@ -33,7 +33,7 @@ block content %}
     >My Posts</span
   >
 </div>
-<div class="card mt-2 mb-5 shadow">
+<div class="card mt-2 mb-5 shadow rounded-0">
   <div class="card-body customize p-0">
     <ol class="list-group p-2">
       {% for post in posts|sort(attribute='id', reverse = True) %}
@@ -68,7 +68,7 @@ block content %}
 <div class="row mt-2 mb-4">
   {% for project in projects|sort(attribute='id', reverse = True) %}
     <div class="col-lg-4 mb-4">
-      <div class="card shadow" style="min-height: 508.8px;">
+      <div class="card shadow rounded-0" style="min-height: 508.8px;">
         <div class="card-body">
           {% if project.status == 1 %}
               <button
@@ -105,7 +105,7 @@ block content %}
 
 <!-- my popular posts start -->
 <div class="baslik-customize py-3"><span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder">Skills</span></div>
-<div class="card mt-2 mb-4 shadow">
+<div class="card mt-2 mb-4 shadow rounded-0">
   <div class="card-body customize p-3">
     <div class="d-inline-flex fw-bolder text-muted">Languages and Frameworks: </div>
     <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/html.png" width="32" height="32" class="me-1">HTML</span></div>

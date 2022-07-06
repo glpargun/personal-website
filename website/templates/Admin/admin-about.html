@@ -67,7 +67,9 @@
           name="p1"
           aria-label="Floating label select example"
         >
-          <option id="p1" name="p1" value="1" selected>{{ about.p1 }}</option>
+          <option id="p1" name="p1" value="{{ about.p1 }}" selected>
+            {{ about.p1 }}
+          </option>
           {% for uploads in uploads%} {%if uploads.kategori == 1%}
           <option
             id="p1"
@@ -107,8 +109,8 @@
           name="p2"
           aria-label="Floating label select example"
         >
-          <option id="p2" name="p2" value="{{ about.p1 }}" selected>
-            {{ about.p1 }}
+          <option id="p2" name="p2" value="{{ about.p2 }}" selected>
+            {{ about.p2 }}
           </option>
           {% for uploads in uploads%} {%if uploads.kategori == 1%}
           <option
@@ -149,8 +151,8 @@
           name="p3"
           aria-label="Floating label select example"
         >
-          <option id="p3" name="p3" value="{{ about.p1 }}" selected>
-            {{ about.p1 }}
+          <option id="p3" name="p3" value="{{ about.p3 }}" selected>
+            {{ about.p3 }}
           </option>
           {% for uploads in uploads%} {%if uploads.kategori == 1%}
           <option
@@ -191,8 +193,8 @@
           name="p4"
           aria-label="Floating label select example"
         >
-          <option id="p4" name="p4" value="{{ about.p1 }}" selected>
-            {{ about.p1 }}
+          <option id="p4" name="p4" value="{{ about.p4 }}" selected>
+            {{ about.p4 }}
           </option>
           {% for uploads in uploads%} {%if uploads.kategori == 1%}
           <option
@@ -233,8 +235,8 @@
           name="p5"
           aria-label="Floating label select example"
         >
-          <option id="p5" name="p5" value="{{ about.p1 }}" selected>
-            {{ about.p1 }}
+          <option id="p5" name="p5" value="{{ about.p5 }}" selected>
+            {{ about.p5 }}
           </option>
           {% for uploads in uploads%} {%if uploads.kategori == 1%}
           <option

@@ -33,7 +33,7 @@
     <!-- create a post starts -->
     <div class="collapse mt-2" id="collapseCreate">
       <div class="card rounded-0 card-body">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
           <div class="input-group flex-nowrap mb-3">
             <span class="input-group-text" id="addon-wrapping"
               ><i class="bi bi-cursor-text fw-bolder"></i
@@ -46,6 +46,20 @@
               id="title"
               name="title"
               aria-describedby="addon-wrapping"
+            />
+          </div>
+
+          <div class="input-group flex-nowrap mb-3 mt-3">
+            <span class="input-group-text" id="kapak_photo"
+              ><i class="bi bi-image"></i
+            ></span>
+            <input
+              type="file"
+              class="form-control"
+              aria-label="kapak_photo"
+              id="kapak_photo"
+              name="kapak_photo"
+              aria-describedby="kapak_photo"
             />
           </div>
 

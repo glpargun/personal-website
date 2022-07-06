@@ -7,7 +7,7 @@ block content %}
     >My Posts</span
   >
 </div>
-<div class="card mt-2 mb-5 shadow">
+<div class="card mt-2 mb-5 shadow rounded-0">
   <div class="card-body customize p-0">
     <ol class="list-group p-2">
       {% for post in posts|sort(attribute='id', reverse = True) %}
