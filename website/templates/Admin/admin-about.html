@@ -5,7 +5,8 @@
   <div class="card-header">
     <span class="fw-bolder">ABOUT ME</span> - Last Update:
     <span class="fw-bolder text-danger"
-      >{{ about.date_created.strftime('%B %m, %Y') }}</span
+      >{%if about.date_created %} {{ about.date_created.strftime('%B %d, %Y') }}
+      {%else%} not updated {%endif%}</span
     >
   </div>
   <div class="card-body">

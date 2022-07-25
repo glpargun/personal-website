@@ -1,42 +1,44 @@
 {% extends "base.html" %} {% block title %}Posts - Galip Argun{% endblock %} {%
 block content %}
 
-<!-- my recent posts start -->
-<div class="baslik-customize py-3 mt-5">
-  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
-    >My Posts</span
-  >
-</div>
-<div class="card mt-2 mb-5 shadow rounded-0">
-  <div class="card-body customize p-0">
-    <ol class="list-group p-2">
-      {% for post in posts|sort(attribute='id', reverse = True) %}
-      <!-- {{post.id}} list item starts -->
-      <a href="/writing-detail/{{post.id}}" class="text-decoration-none">
-        <li
-          class="list-group-item put-hover border-0 pt-2 pb-2 rounded d-flex justify-content-between align-items-start"
-        >
-          <div class="ms-2 me-auto">
-            <div class="writing-heading d-none d-md-block">
-              {{ post.title|truncate(50, True, '..') }}
-            </div>
-            <div class="writing-heading d-block d-md-none">
-              {{ post.title|truncate(20, True, '..') }}
-            </div>
-            <span class="writing-date"
-              >{{ post.date_created.strftime('%B %m, %Y') }}</span
-            >
-          </div>
-          <span class="badge bg-primary text-white rounded-pill py-2"
-            ><i class="bi bi-eyeglasses me-1"></i> {{post.likes|length}}</span
-          >
-        </li></a
-      >
-      <!-- {{post.id}} list item ends -->
-      {% endfor %}
-    </ol>
+<div class="container">
+  <!-- my recent posts start -->
+  <!-- baslik kismi starts -->
+  <div class="baslik-customize d-inline-flex">
+    <span class="basharf"><span class="second-text">Blog</span></span>
   </div>
-</div>
-<!-- my recent posts end -->
+  <!-- baslik kismi ends -->
 
+  <div class="card mb-5 shadow rounded-0">
+    <div class="card-body customize p-0">
+      <ol class="list-group p-2">
+        {% for post in posts|sort(attribute='id', reverse = True) %}
+        <!-- {{post.id}} list item starts -->
+        <a href="/writing-detail/{{post.id}}" class="text-decoration-none">
+          <li
+            class="list-group-item put-hover border-0 pt-2 pb-2 rounded d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <div class="writing-heading d-none d-md-block">
+                {{ post.title|truncate(50, True, '..') }}
+              </div>
+              <div class="writing-heading d-block d-md-none">
+                {{ post.title|truncate(20, True, '..') }}
+              </div>
+              <span class="writing-date"
+                >{{ post.date_created.strftime('%B %m, %Y') }}</span
+              >
+            </div>
+            <span class="badge bg-primary text-white rounded-pill py-2"
+              ><i class="bi bi-eyeglasses me-1"></i> {{post.likes|length}}</span
+            >
+          </li></a
+        >
+        <!-- {{post.id}} list item ends -->
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <!-- my recent posts end -->
+</div>
 {% endblock %}

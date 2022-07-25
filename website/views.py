@@ -14,6 +14,16 @@ UPLOAD_FOLDER = "static/image/Upload/"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 views = Blueprint('views', __name__)
 
+# new index page starts
+@views.route('/index2')
+@views.route('/home2')
+def home_page2():
+    posts = Post.query.order_by(-Post.id).limit(6).all()
+    projects = Project.query.order_by(-Project.id).limit(4).all()
+    return render_template('index2.html', user=current_user, posts=posts, projects=projects)
+# new index page ends
+
+
 @views.route('/')
 @views.route('/home')
 def home_page():
@@ -233,6 +243,7 @@ def adminposts_page():
         text = request.form.get('text')
         title = request.form.get('title')
         kapak_photo = request.files.get('kapak_photo')
+        date_created = datetime.now()
 
         text_exists = Post.query.filter_by(text=text).first()
         title_exists = Post.query.filter_by(title=title).first()
@@ -250,12 +261,13 @@ def adminposts_page():
             filename=secure_filename(kapak_photo.filename)
             photo_name = str(uuid.uuid1()) + "_" + filename
             kapak_photo.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],photo_name))
-            post = Post(text=text, title=title, author = current_user.id, kapak_photo=photo_name)
+            post = Post(text=text, title=title, date_created=date_created, author = current_user.id, kapak_photo=photo_name)
             upload = Upload(photo=photo_name, kategori='2')
             db.session.add(post)
             db.session.add(upload)
             db.session.commit()
             flash('Post published!', category='success')
+            return redirect(url_for('views.adminposts_page'))
 
     posts = Post.query.all()
     return render_template('/Admin/Posts.html', user=current_user, posts=posts)
@@ -351,6 +363,7 @@ def project():
             db.session.add(project)
             db.session.commit()
             flash('Project is succesfully added.', category='success')
+            return redirect(url_for("views.project"))
 
     projects = Project.query.all()
     return render_template('/Admin/admin-project.html', user=current_user, projects=projects)
@@ -413,10 +426,6 @@ def adminprojectedit(id):
             db.session.commit()
             flash('Project updated', category='success')
             return redirect(url_for('views.project'))
-
-
-
-        
 
     return render_template('/Admin/admin-project-edit.html', user=current_user, projects=projects)
 

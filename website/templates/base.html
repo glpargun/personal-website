@@ -17,6 +17,9 @@
   </head>
 
   <body>
+    {% block content %} {% endblock %}
+    <br /><br />
+
     <!-- system messages start -->
     {% with messages = get_flashed_messages(with_categories=True) %} {% if
     messages%} {% for category, message in messages %} {%if category ==
@@ -39,7 +42,7 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="toast-body welcome-style p-3">{{ message }}</div>
+      <div class="p-2">{{ message }}</div>
     </div>
     {%else %}
     <div
@@ -59,13 +62,12 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="toast-body welcome-style p-3">{{ message }}</div>
+      <div class="p-2">{{ message }}</div>
     </div>
     {% endif %} {% endfor %} {% endif %} {% endwith %}
     <!-- system messsages end -->
 
-    <div class="container mt-5 mb-5">{% block content %} {% endblock %}</div>
-    <br /><br /><br />
+    <br />
     <div class="navbar footer-menu p-0" style="z-index: 99999999">
       <div class="container">
         <div class="lg-secreen-buttons">
@@ -73,7 +75,7 @@
             Home
           </a>
           <a href="/writing" class="btn btn-outline-light border-0 me-3"
-            >Writing</a
+            >Blog</a
           >
           <a href="/about-me" class="btn btn-outline-light border-0 me-3">
             About

@@ -1,14 +1,16 @@
 {% extends "base.html" %} {% block title %}About Me - Galip Argun{% endblock %}
 {% block content %}
 
-<!-- about-me start -->
-<div class="baslik-customize py-3 mt-5">
-  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
-    >About Me</span
-  >
-</div>
+<div class="container">
 
-<div class="row mt-3 ps-3">
+<!-- about-me start -->
+<!-- baslik kismi starts -->
+<div class="baslik-customize d-inline-flex">
+  <span class="basharf"><span class="second-text">About Me</span></span>
+</div>
+<!-- baslik kismi ends -->
+
+<div class="row ps-3">
   <div class="col-md-8 pe-3">
     <span class="about-me-beginning">
       I'm an EE Engineer, and coding enthusiast based in lovely Bremen, Germany.
@@ -76,6 +78,7 @@
   </div>
 </div>
 
+
 <div class="card mt-5 mb-5 shadow rounded-0">
   <div class="card-body about-me-beginning-text">
 
@@ -86,13 +89,13 @@
 <!-- about-me ends -->
 
 <!-- skills start -->
-<div class="baslik-customize py-3 mt-5">
-  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
-    >My Skills</span
-  >
+<!-- baslik kismi starts -->
+<div class="baslik-customize d-inline-flex">
+  <span class="basharf"><span class="second-text">Skills</span></span>
 </div>
+<!-- baslik kismi ends -->
 
-<div class="row mt-2">
+<div class="row">
   <div class="col-md-5">
     <div class="card shadow rounded-0">
       <div class="card-body">
@@ -199,12 +202,14 @@
 <!-- skills end -->
 
 <!-- random things starts -->
-<div class="baslik-customize py-3 mt-4">
-  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
-    >Random Facts</span
-  >
+<!-- baslik kismi starts -->
+<div class="baslik-customize d-inline-flex">
+  <span class="basharf"><span class="second-text">Random Facts</span></span>
 </div>
-<div class="card mt-2 mb-5 shadow rounded-0">
+<!-- baslik kismi ends -->
+
+
+<div class="card mb-5 shadow rounded-0">
   <div class="card-body">
     <p class="about-me-beginning-text mb-0">
       — Give me tea or coffee, and I'll change the orbit of the world. 
@@ -219,4 +224,5 @@
 </div>
 <!-- random things ends -->
 
+</div>
 {% endblock %}

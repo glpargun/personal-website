@@ -1,0 +1,373 @@
+{% extends "base.html" %} {% block title %}Home - Galip Argun{% endblock %} {%
+block content %}
+<section id="welcome" class="bg-light w-100">
+  <div class="container welcome-style ps-2 pe-2">
+    <h3><span>👋🏼</span><span class="ms-2">Hey, I am Galip!</span></h3>
+    <p>
+      I am a
+      <a
+        href="https://www.linkedin.com/in/galip-argun/"
+        class="link"
+        target="_blank"
+        >EE engineer</a
+      >
+      and creative developer,
+      <a
+        href="https://www.kitapyurdu.com/yazar/galip-argun/145236.html"
+        class="link"
+        target="_blank"
+        >writer</a
+      >
+      and a
+      <a href="https://github.com/glpargun" class="link a" target="_blank"
+        >coding enthusiast</a
+      >
+      such as python, HTML, CSS, PHP and additionally SQL, mySQL. I can build
+      anything from mobile to web app. I am living in lovely Bremen, Germany.
+      Currently, a master student at the University of Bremen.
+    </p>
+  </div>
+</section>
+
+<section id="blog-text" class="bg-white w-100">
+  <div class="container pb-3">
+    <!-- baslik kismi starts -->
+    <div class="baslik-customize d-inline-flex">
+      <span class="basharf"><span class="second-text">Blog</span></span>
+    </div>
+    <!-- baslik kismi ends -->
+
+    <!-- büyük ekran blog starts -->
+    <div class="container d-none d-lg-block ps-2 pe-2 mt-3">
+      <div class="row">
+        {% for posts in posts|sort(attribute='id', reverse = True) %}
+        <div class="col-lg-4">
+          <div class="card mb-3 me-0 ms-0 shadow border-0" style="width: 17rem">
+            <img
+              src="{{url_for('static', filename= 'image/Upload/{}'.format(posts.kapak_photo))}}"
+              class="card-img-top"
+              style="height: 12rem"
+              alt="{{posts.title}}"
+            />
+            <div class="card-body">
+              <h5 class="card-title writing-heading">
+                {{ posts.title|truncate(50, True, '..') }}
+              </h5>
+              <p class="card-text text-muted">
+                <span class="writing-date"
+                  >{{ posts.date_created.strftime('%B %m, %Y') }}</span
+                >
+                -
+                <span class="writing-date"> {{posts.likes|length}} read</span>
+              </p>
+              <p class="card-text mt-0">
+                {{ posts.text|truncate(100, True, '...') }}
+              </p>
+              <a
+                href="/writing-detail/{{posts.id}}"
+                class="btn btn-outline-dark fw-bolder border-0 rounded-0 w-100"
+                >read more..</a
+              >
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- büyük ekran blog ends -->
+
+    <!-- text blog phone starts -->
+    <div class="container d-block d-lg-none ps-2 pe-2 mt-3">
+      <div class="card-body customize p-0">
+        <ol class="list-group p-2">
+          {% for post in posts|sort(attribute='id', reverse = True) %}
+          <!-- {{post.id}} list item starts -->
+          <a href="/writing-detail/{{post.id}}" class="text-decoration-none">
+            <li
+              class="list-group-item put-hover border-0 pt-2 pb-2 rounded d-flex justify-content-between align-items-start"
+            >
+              <div class="ms-2 me-auto">
+                <div class="writing-heading d-none d-md-block">
+                  {{ post.title|truncate(50, True, '..') }}
+                </div>
+                <div class="writing-heading d-block d-md-none">
+                  {{ post.title|truncate(17, True, '..') }}
+                </div>
+                <span class="writing-date"
+                  >{{ post.date_created.strftime('%B %m, %Y') }}</span
+                >
+              </div>
+              <span class="badge bg-primary text-white rounded-pill py-2"
+                ><i class="bi bi-eyeglasses me-1"></i>
+                {{post.likes|length}}</span
+              >
+            </li></a
+          >
+          <!-- {{post.id}} list item ends -->
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+    <!-- text blog phone ends -->
+  </div>
+</section>
+
+<section id="project" class="bg-light w-100">
+  <div class="container pb-3 pe-0">
+    <!-- baslik kismi starts -->
+    <div class="baslik-customize d-inline-flex">
+      <span class="basharf"><span class="second-text">Projects</span></span>
+    </div>
+    <!-- baslik kismi ends -->
+
+    <!-- project starts -->
+    <div class="container ps-2">
+      {% for project in projects|sort(attribute='id', reverse = True) %}
+      <div class="card shadow mt-4 mb-3 ms-0 border-0" style="max-width: 100vw">
+        <div class="row g-0">
+          <div class="col-md-5">
+            <img
+              src="{{url_for('static', filename= 'image/Upload/{}'.format(project.photo))}}"
+              class="img-fluid rounded-start"
+              width="700px"
+              alt="..."
+            />
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              {% if project.status == 1 %}
+              <button
+                class="btn btn-outline-primary btn-sm mb-2 fw-bolder"
+                disabled
+              >
+                in progress
+              </button>
+              {% elif project.status == 2 %}
+              <button
+                class="btn btn-outline-success btn-sm mb-2 fw-bolder"
+                disabled
+              >
+                Finished</button
+              >{% elif project.status == 3 %}
+              <button
+                class="btn btn-outline-secondary btn-sm mb-2 fw-bolder"
+                disabled
+              >
+                on plan
+              </button>
+              {% endif %}
+              <h5 class="card-title">{{ project.name }}</h5>
+              <p class="card-text">{{ project.description|safe }}</p>
+              <p class="card-text">
+                <small class="text-muted"
+                  >Last updated in {{ project.date_created.strftime('%B %d, %Y')
+                  }}</small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <!-- project ends -->
+  </div>
+</section>
+
+<section id="skills" class="bg-white w-100">
+  <div class="container">
+    <!-- baslik kismi starts -->
+    <div class="baslik-customize d-inline-flex">
+      <span class="basharf"><span class="second-text">Skills</span></span>
+    </div>
+    <!-- baslik kismi ends -->
+  </div>
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-12">
+        <div
+          class="d-inline-flex bg-dark rounded-pill p-2 fw-bolder text-white"
+        >
+          Languages and Frameworks
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/html.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />HTML</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/css.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />CSS</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/python.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />PYTHON</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/php.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />PHP</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/java.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />JAVASCRIPT</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/sql.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />SQL</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/bootstrap.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />BOOTSTRAP</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/flask.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />FLASK</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/matlab.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />MATLAB</span
+          >
+        </div>
+        <br />
+      </div>
+      <div class="col-12">
+        <div
+          class="d-inline-flex bg-dark rounded-pill p-2 fw-bolder text-white"
+        >
+          Databases
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/mysql.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />mySQL</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/mongodb.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />mongoDB</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/sqlite.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />SQLite</span
+          >
+        </div>
+      </div>
+      <div class="col-12">
+        <div
+          class="d-inline-flex bg-dark rounded-pill p-2 fw-bolder text-white"
+        >
+          Programs
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/office.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />Office Packages</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/photoshop.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />Adobe Photoshop</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/autocad.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />AutoCAD</span
+          >
+        </div>
+        <div class="d-inline-flex p-2 bd-highlight rounded-pill m-1">
+          <span
+            ><img
+              src="./static/image/3ds.png"
+              width="32"
+              height="32"
+              class="me-1"
+            />3ds Max</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

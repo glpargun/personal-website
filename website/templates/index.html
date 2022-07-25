@@ -1,5 +1,8 @@
 {% extends "base.html" %} {% block title %}Home - Galip Argun{% endblock %} {%
 block content %}
+
+<div class="container">
+
 <div class="welcome-style">
   <h3><span>👋🏼</span><span class="ms-2">Hey, I am Galip!</span></h3>
   <p>
@@ -28,12 +31,14 @@ block content %}
 </div>
 
 <!-- my recent posts start -->
-<div class="baslik-customize py-3 mt-5">
-  <span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder"
-    >My Posts</span
-  >
+
+<!-- baslik kismi starts -->
+<div class="baslik-customize d-inline-flex">
+  <span class="basharf"><span class="second-text">Blog Posts</span></span>
 </div>
-<div class="card mt-2 mb-5 shadow rounded-0">
+<!-- baslik kismi ends -->
+
+<div class="card shadow rounded-0 mt-2">
   <div class="card-body customize p-0">
     <ol class="list-group p-2">
       {% for post in posts|sort(attribute='id', reverse = True) %}
@@ -64,10 +69,16 @@ block content %}
 <!-- my recent posts end -->
 
 <!-- some projects start -->
-<div class="baslik-customize py-3"><span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder">Some Projects</span></div>
-<div class="row mt-2 mb-4">
+
+<!-- baslik kismi starts -->
+<div class="baslik-customize d-inline-flex">
+  <span class="basharf"><span class="second-text">Projects</span></span>
+</div>
+<!-- baslik kismi ends -->
+
+<div class="row mt-2">
   {% for project in projects|sort(attribute='id', reverse = True) %}
-    <div class="col-lg-4 mb-4">
+    <div class="col-lg-4">
       <div class="card shadow rounded-0" style="min-height: 508.8px;">
         <div class="card-body">
           {% if project.status == 1 %}
@@ -91,7 +102,7 @@ block content %}
                 on plan
               </button>
               {% endif %}<br>
-          <img src="{{url_for('static', filename= 'image/Upload/{}'.format(project.photo))}}"  alt="{{project.title}}" class="img-fluid rounded mb-2" style="width: 100%; height: 250px">
+          <img src="{{url_for('static', filename= 'image/Upload/{}'.format(project.photo))}}"  alt="{{project.title}}" class="card-img-top mb-2">
           <h5 class="card-title">{{ project.name }}</h5>
           <span class="card-text pt-0 mt-0">{{ project.description|safe }}</span>
         </div>
@@ -99,13 +110,18 @@ block content %}
     </div>
     {% endfor %}
 </div>
-
-    
+   
 <!-- some projects end -->
 
 <!-- my popular posts start -->
-<div class="baslik-customize py-3"><span class="rounded-pill bg-dark text-light baslik-customize p-3 fw-bolder">Skills</span></div>
-<div class="card mt-2 mb-4 shadow rounded-0">
+
+<!-- baslik kismi starts -->
+<div class="baslik-customize d-inline-flex">
+  <span class="basharf"><span class="second-text">Skills</span></span>
+</div>
+<!-- baslik kismi ends -->
+
+<div class="card shadow rounded-0 mt-2">
   <div class="card-body customize p-3">
     <div class="d-inline-flex fw-bolder text-muted">Languages and Frameworks: </div>
     <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/html.png" width="32" height="32" class="me-1">HTML</span></div>
@@ -128,14 +144,11 @@ block content %}
     <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/photoshop.png" width="32" height="32" class="me-1">Adobe Photoshop</span></div>
     <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/autocad.png" width="32" height="32" class="me-1">AutoCAD</span></div>
     <div class="d-inline-flex p-2 bd-highlight rounded m-1"><span><img src="./static/image/3ds.png" width="32" height="32" class="me-1">3ds Max</span></div>
-
-   
-
-
   </div>
 </div>
 <!-- my travel posts end -->
 
+</div>
 
 
 {% endblock %}
